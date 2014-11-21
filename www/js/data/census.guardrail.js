@@ -184,8 +184,7 @@ data.guardrail = {
         ];
     },
     
-       getNameIniziali: function(get_option_callback) {
-        
+       getNameIniziali: function() {
         if(data._db == null) data.open();
         
         data._db.transaction(function(tx) {
@@ -193,16 +192,11 @@ data.guardrail = {
             var q = "select * from 'census' ";
             tx.executeSql(q, [], function(tx, result) {
                 // success 
-                var rows = [];
                 var itemCount = result.rows.length;
                 for(var i = 0; i < itemCount; i++) {
                     var row = result.rows.item(i);
-                    rows[i]=row.id;
-                    get_option_callback(row);
                 }
-                console.log("ROW--",rows);
-                
-            return;
+                return row
             }, function(tx, error) {
                 console.log(error);
             });

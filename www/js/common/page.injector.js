@@ -277,12 +277,15 @@ var page = {
                     '<label>Scegli Guardrail</label>'+
                     '<select id="nomiInizio">'+
                     '<option>Nome Inizio</option>';
-                    var NameIniziali = data.guardrail.getNameIniziali();
-                    console.log("NOME INIZIO",NameIniziali);
-                    for(var i in NameIniziali) {
-                         content += '<option>' + NameIniziali[i] + '</option>';
-                    }
-                    console.log("NOME INIZIO",NameIniziali);
+        var NameIniziali = data.guardrail.getNameIniziali();
+        console.log("ROW", NameIniziali);
+        for(var i in NameIniziali) {
+           content += '<option>' + NameIniziali[i].name + '</option>';
+        }
+        //$('#barriera').html(content);
+        
+        
+
             content+='</select>'+
                     '</div>'+
                     '</fieldset>'+
