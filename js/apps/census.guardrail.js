@@ -267,7 +267,7 @@ var app = {
 
         //guardrailInfo.  = $('#nomeInizio').val();                              // nome inizio associato
         app.census.guardrail.guardrailInfo = guardrailInfo;
-        console.log("RAILINFO APPS",guardrailInfo);
+        //console.log("RAILINFO APPS",guardrailInfo);
         
         // informazioni tratto
       /*

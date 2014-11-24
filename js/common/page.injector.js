@@ -280,9 +280,8 @@ var page = {
                     var NameIniziali = data.guardrail.getNameIniziali();
                     console.log("NOME INIZIO",NameIniziali);
                     for(var i in NameIniziali) {
-                         content += '<option>' + NameIniziali[i] + '</option>';
+                         content += '<option>' + NameIniziali[i].name + '</option>';
                     }
-                    console.log("NOME INIZIO",NameIniziali);
             content+='</select>'+
                     '</div>'+
                     '</fieldset>'+

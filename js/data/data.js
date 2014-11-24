@@ -508,9 +508,9 @@ var data = {
             if(filter.length > 0) {
                 query += " where " + filter.join(" and ");
             }
-console.log('fetch parameters query', query);
-console.log('fetch parameters filter', filter);
-console.log('fetch parameters params', params);
+//console.log('fetch parameters query', query);
+//console.log('fetch parameters filter', filter);
+//console.log('fetch parameters params', params);
             
             tx.executeSql(query, params, function(tx, results) {
 
@@ -566,10 +566,10 @@ console.log('fetch parameters params', params);
                 serialized
             ];
             
-            console.log("PARAMS-DATA",params);
+            //console.log("PARAMS-DATA",params);
             
             tx.executeSql(query, params, function(tx2, resultSet) {
-                console.log("QUERY DATA",query);
+                //console.log("QUERY DATA",query);
                 console.log("Saved Census with id " + resultSet.insertId);
                 
                 var censusId = resultSet.insertId;

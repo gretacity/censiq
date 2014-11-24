@@ -246,7 +246,7 @@ app.syncNow = function() {
         // Used when come back from login page
         itemId = helper.getParamValue('id');
     }
-    
+    console.log("ITEM_ID",itemId)
     if((itemId || 0) == 0) {
         syncButton.addClass('ui-disabled');
         helper.alert('Impossibile sincronizzare', null, 'Sincronizza elemento');

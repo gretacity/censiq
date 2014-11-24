@@ -11,7 +11,7 @@ guardrail.guardrailInfo = function() {
     this.Mterminali = '';                           // gruppo terminali Montaggio
     this.Mbarriera = '';                            // Tipologie Barriere Montaggio
     this.parent ='';                               // Inizio Tratto
-    this.fine = '';                             // Fine Tratto
+    this.fine = '';                                 // Fine Tratto
     this.nomei='';                                  //nome inizio
     this.sequenzai='';                              //numero sequenza
     //this.nomea='';                                 //nome associato inizio
@@ -39,7 +39,7 @@ data.guardrail = {
     
     // Return the serialized entity string
     serialize: function(entity) {
-        console.log("SERIALIZE GUARDRAIL",entity);
+        //console.log("SERIALIZE GUARDRAIL",entity);
         var data = {
             comune: entity.guardrail.comune,
             provincia: entity.guardrail.provincia,
@@ -49,14 +49,14 @@ data.guardrail = {
             //guards: entity.guardrail.guardInfo,
         };
         //console.log(".." + JSON.stringify(data));
-        console.log("FINE SERIALIZE GUARDRAIL",data);
+        //console.log("FINE SERIALIZE GUARDRAIL",data);
         console.log(".." + JSON.stringify(data));
         return JSON.stringify(data);
     },
     
     // Return entity from a record
     deserialize: function(row) {
-        console.log("DESERIALIZE GUARDRAIL",row);
+        //console.log("DESERIALIZE GUARDRAIL",row);
         var census = new Census();
         census.id = row.id;
         census.dateAdded = row.date_added;
@@ -74,7 +74,7 @@ data.guardrail = {
         census.guardrail.streetNumber= tmp.streetNumber;
         //census.guardrail.guardInfo=tmp.guards;
         census.guardrail.guardrailInfo= tmp.guardrailInfo;
-        console.log("FINE DESERIALIZE GUARDRAIL",census);
+        //console.log("FINE DESERIALIZE GUARDRAIL",census);
         return census;
     },
 
@@ -89,7 +89,7 @@ data.guardrail = {
                 latitudine: entity.position.latitude,
                 longitudine: entity.position.longitude,
                 data_inserimento: entity.dateAdded,
-                sys_user_id: 0,
+                //sys_user_id: 0,
                 r_qr_code_id: entity.qrCode,
                 numero_nastri_smontaggio: entity.guardrail.guardrailInfo.nastri,
                 numero_pali_smontaggio: entity.guardrail.guardrailInfo.pali,
@@ -140,13 +140,13 @@ data.guardrail = {
      *  }
      */
     updateSupportTables: function(params) {
-        console.log("TABLES");
+        //console.log("TABLES");
         if(data._db == null) this.open();
         
         data._db.transaction(function(t) {
             
             if(params.grcen) {
-                console.log("ROW",row);
+                //console.log("ROW",row);
                 // Update 
                 for(var i in params.manufacturers) {
                     var row = params.manufacturers[i];
@@ -184,7 +184,7 @@ data.guardrail = {
         ];
     },
     
-       getNameIniziali: function(get_option_callback) {
+       getNameIniziali: function(successCallback,errorCallback) {
         
         if(data._db == null) data.open();
         
@@ -193,19 +193,26 @@ data.guardrail = {
             var q = "select * from 'census' ";
             tx.executeSql(q, [], function(tx, result) {
                 // success 
-                var rows = [];
                 var itemCount = result.rows.length;
                 for(var i = 0; i < itemCount; i++) {
                     var row = result.rows.item(i);
-                    rows[i]=row.id;
-                    get_option_callback(row);
+                    console.log("ROW",row.entity_value);
+
                 }
-                console.log("ROW--",rows);
-                
-            return;
+            if(successCallback != null)
+            {
+                console.log("SUCCESS");
+                successCallback(result);};
             }, function(tx, error) {
-                console.log(error);
+                console.log("Errore",error);
+                if(errorCallback != null) errorCallback(error);
             });
         });
+
+        /*return [
+            {name: 'Inizio 1'},
+            {name: 'Inizio 2'}
+        ];*/
+        
     }
 };
