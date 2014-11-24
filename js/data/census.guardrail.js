@@ -12,7 +12,7 @@ guardrail.guardrailInfo = function() {
     this.Mbarriera = '';                            // Tipologie Barriere Montaggio
     this.parent ='';                               // Inizio Tratto
     this.fine = '';                                 // Fine Tratto
-    this.nomei='';                                  //nome inizio
+//    this.nomei='';                                  //nome inizio
     this.sequenzai='';                              //numero sequenza
     //this.nomea='';                                 //nome associato inizio
 };
@@ -102,7 +102,7 @@ data.guardrail = {
                 parent: entity.guardrail.guardrailInfo.parent,
                 fine: entity.guardrail.guardrailInfo.fine,
                 sequenza: entity.guardrail.guardrailInfo.sequenzai,
-                nome_inizio: entity.guardrail.guardrailInfo.nomei
+                //nome_inizio: entity.guardrail.guardrailInfo.nomei
                 //nome_assegnato: entity.guardrail.guardrailInfo.nomea,
                 
             },
@@ -150,8 +150,8 @@ data.guardrail = {
                 // Update 
                 for(var i in params.manufacturers) {
                     var row = params.manufacturers[i];
-                    var q = "insert or replace into gr_censimento_guardrail (numero_nastri_smontaggio, numero_pali_smontaggio, gruppi_terminali_smontaggio, tipologia_barriera_smontaggio, numero_nastri_montaggio, numero_pali_montaggio, gruppi_terminali_montaggio, tipologia_barriera_montaggio,parent, fine, sequenza, nome_inizio) values (?, ?,?, ?,?, ?,?,?, ?, ?, ?,?, ?,?, ?,?)";
-                    t.executeSql(q, [row.guardrailInfo.nastri, row.guardrailInfo.pali, row.guardrailInfo.terminali,row.guardrailInfo.barriera, row.guardrailInfo.Mnastri,row.guardrailInfo.Mpali, row.guardrailInfo.Mterminali, row.guardrailInfo.Mbarriera,row.guardrailInfo.parent, row.guardrailInfo.fine, row.guardrailInfo.sequenzai, row.guardrailInfo.nomei ]);
+                    var q = "insert or replace into gr_censimento_guardrail (numero_nastri_smontaggio, numero_pali_smontaggio, gruppi_terminali_smontaggio, tipologia_barriera_smontaggio, numero_nastri_montaggio, numero_pali_montaggio, gruppi_terminali_montaggio, tipologia_barriera_montaggio,parent, fine, sequenza) values (?, ?,?, ?,?, ?,?,?, ?, ?, ?,?, ?,?, ?)";
+                    t.executeSql(q, [row.guardrailInfo.nastri, row.guardrailInfo.pali, row.guardrailInfo.terminali,row.guardrailInfo.barriera, row.guardrailInfo.Mnastri,row.guardrailInfo.Mpali, row.guardrailInfo.Mterminali, row.guardrailInfo.Mbarriera,row.guardrailInfo.parent, row.guardrailInfo.fine, row.guardrailInfo.sequenzai ]);
                 }
             }
 /*
@@ -183,7 +183,7 @@ data.guardrail = {
             {name: 'Altro'}
         ];
     },
-    
+    /*
        getNameIniziali: function(successCallback,errorCallback) {
         
         if(data._db == null) data.open();
@@ -196,7 +196,7 @@ data.guardrail = {
                 var itemCount = result.rows.length;
                 for(var i = 0; i < itemCount; i++) {
                     var row = result.rows.item(i);
-                    console.log("ROW",row.entity_value);
+                    console.log("ROW",row.id);
 
                 }
             if(successCallback != null)
@@ -212,7 +212,41 @@ data.guardrail = {
         /*return [
             {name: 'Inizio 1'},
             {name: 'Inizio 2'}
-        ];*/
+        ];
         
+    }*/
+    getNomi: function () {
+      this.returnSQLArray('select * from census ', this.processPersonsResponse); 
+    },
+    
+    returnSQLArray: function (str,callback) 
+    {
+        if(data._db == null) data.open();
+        var result = [];
+         data._db.transaction(
+            function (tx, results) {
+                 tx.executeSql(str, [], function(tx, rs) { 
+                    for(var i=0; i<rs.rows.length; i++) {
+                    
+                      var row = rs.rows.item(i);
+                      //console.log("ROW",row);
+                      result[i] = {
+                          id: row['id'],
+                          qr: row['qr_code']
+                      }
+                 }callback(result); });                   
+            }
+         );   
+    },
+    
+    processPersonsResponse: function (response) {
+      $.each(response, function(value) {   
+     $('#nomiInizio')
+         .append($("<option></option>")
+         .attr("value",value.id)
+         .text(value.qr)); 
+    });
+
+      
     }
 };

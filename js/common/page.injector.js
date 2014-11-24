@@ -268,20 +268,21 @@ var page = {
                     '<input type="radio" name="radio-choice-2" class="guardrail-mark" id="radio-choice-21" value="1" /> <label for="radio-choice-21">Si</label>'+
                     '<input type="radio"  name="radio-choice-2" class="guardrail-mark" id="radio-choice-22" value="0"  /> <label for="radio-choice-22">No</label>'+
                     //---
-                    '<div class="InizioSi">'+
-                    '<label>Etichetta inizio tratto</label>'+
-                    '<input type="text" id="nameIni" placeholder="Nome tratto"/>  </div>'+
+                    //'<div class="InizioSi">'+
+                    //'<label>Etichetta inizio tratto</label>'+
+                    //'<input type="text" id="nameIni" placeholder="Nome tratto"/>  </div>'+
                     '<div class="InizioNo">'+
                     '<label>Sequenza</label>'+
                     '<input type="number" id="SeqIni" placeholder="numero sequenza"/>'+
                     '<label>Scegli Guardrail</label>'+
+                    //'<input type="text" id="nomiInizio" placeholder="Nome inizio"/>  </div>'+
                     '<select id="nomiInizio">'+
-                    '<option>Nome Inizio</option>';
-                    var NameIniziali = data.guardrail.getNameIniziali();
-                    console.log("NOME INIZIO",NameIniziali);
+                    '<option value="0">Qr Code Inizio</option>';
+                    var NameIniziali = data.guardrail.getNomi();
+                    /*console.log("NOME INIZIO",NameIniziali);
                     for(var i in NameIniziali) {
                          content += '<option>' + NameIniziali[i].name + '</option>';
-                    }
+                    }*/
             content+='</select>'+
                     '</div>'+
                     '</fieldset>'+

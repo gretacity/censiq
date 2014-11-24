@@ -260,9 +260,11 @@ var app = {
         guardrailInfo.Mterminali = $('#Mterminali').val();                           // gruppi terminali Mntaggio
         guardrailInfo.Mbarriera = $('#Mbarriera').val();                              // tipologie barriere Montaggio
         
-        guardrailInfo.parent = $('input[type="radio"].guardrail-mark:checked').val(); 
+        //guardrailInfo.parent = $('input[type="radio"].guardrail-mark:checked').val(); 
+        guardrailInfo.parent = $('#nomiInizio').val(); 
+        
         guardrailInfo.fine = $('input[type="radio"].guardrail-mark2:checked').val();
-        guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
+        //guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
         guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
 
         //guardrailInfo.  = $('#nomeInizio').val();                              // nome inizio associato

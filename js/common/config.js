@@ -50,10 +50,10 @@ var config = {
     // and longitude coordinates in meters
     GEO_OTPS_MINIMUM_ACCURACY_REQUIRED: 3,
     
-    CAMERA_QUALITY: 10, //25
+    CAMERA_QUALITY: 25, //25
     CAMERA_CORRECT_ORIENTATION: true,
-    CAMERA_TARGET_WIDTH: 800, //300, null
-    CAMERA_TARGET_HEIGHT: 600, //400, null
+    CAMERA_TARGET_WIDTH: 600, //300, null
+    CAMERA_TARGET_HEIGHT: 800, //400, null
     CAMERA_SAVE_TO_PHOTO_ALBUM: false,
     CAMERA_ALLOW_EDIT: false,
     
