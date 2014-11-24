@@ -89,13 +89,12 @@ return;*/
                     break;
                 default:
                     failCallback('Entity type not allowed');
-                    
                     return;
             }
             url += '&session_id=' + auth.getSessionId() +
                     '&api=' + config.API_V + '&app=' + config.APP_NAME;
             if(typeof(device) != 'undefined') url += '&uuid=' + device.uuid;
-            
+
             var item = handler.deserialize(result1.rows.item(0));
             
             // Retrieve related pictures
@@ -110,7 +109,7 @@ return;*/
                 }
                 
                 var preparedItem = handler.mapForService(item);
-console.log(preparedItem);
+//console.log(preparedItem);
                 // Call sync web method on server
                 $.ajax({
                     type : "POST",
@@ -127,8 +126,8 @@ console.log(preparedItem);
 console.log('services.uploadEntity success', result);
                     if(successCallback) successCallback(itemId, result);
                 }).fail(function(jqXHR, textStatus, errorThrown) {
-//console.log(jqXHR);
-//console.log(textStatus);return;
+console.log(jqXHR);
+console.log(textStatus);return;
 console.log('services.uploadEntity success', textStatus);
                     // Login required
                     var loginRequired = ((jqXHR.status == services.CODE_UNAUTHORIZED) || (jqXHR.status == services.CODE_FORBIDDEN));
@@ -138,6 +137,7 @@ console.log('services.uploadEntity success', textStatus);
             });
         });
     }
+    
     
     
 }

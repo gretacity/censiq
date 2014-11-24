@@ -229,9 +229,9 @@ data.guardrail = {
                     for(var i=0; i<rs.rows.length; i++) {
                     
                       var row = rs.rows.item(i);
-                      //console.log("ROW",row);
+                      console.log("ROW",row);
                       result[i] = {
-                          id: row['id'],
+                          //id: row['id'],
                           qr: row['qr_code']
                       }
                  }callback(result); });                   
@@ -240,11 +240,14 @@ data.guardrail = {
     },
     
     processPersonsResponse: function (response) {
-      $.each(response, function(value) {   
+      //console.log ("RESPONSE",response);
+      $.each(response, function(key, value) {   
      $('#nomiInizio')
          .append($("<option></option>")
-         .attr("value",value.id)
+         .attr("value",value.qr)
          .text(value.qr)); 
+      //console.log("KEY",value.qr);
+     //console.log("VALUES",value.id);
     });
 
       

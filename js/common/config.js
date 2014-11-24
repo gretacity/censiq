@@ -22,9 +22,9 @@ var config = {
     
     // To speed up development / testing
     // In release mode they must be empty
-    QR_CODE_TEST: '',
-    LOGIN_DEFAULT_USERNAME: '',
-    LOGIN_DEFAULT_PASSWORD: '',
+    QR_CODE_TEST: '4000000031',
+    LOGIN_DEFAULT_USERNAME: 'ancona@nomail.it',
+    LOGIN_DEFAULT_PASSWORD: 'ancona',
     
     
     URL_BASE: 'http://www.gretacity.com',

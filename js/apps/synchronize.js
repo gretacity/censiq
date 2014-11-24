@@ -273,6 +273,7 @@ var app = {
         console.log('synchronized failed item ' + itemId + ', login required ' + loginRequired + ', ' + errorMessage);
         
         if(loginRequired) {
+            //return;
             document.location.href="login.html?returnurl=" + encodeURIComponent(helper.getDocumentLocation());
             return;
         }

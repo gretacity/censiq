@@ -46,6 +46,7 @@ var auth = {
         
         var data = 'username=' + params.username + '&password=' + params.password +
                     '&api=' + config.API_V + '&app=' + config.APP_NAME;
+            
         if(typeof(device) != 'undefined') data += '&uuid=' + device.uuid;
         $.ajax({
 			type : "GET",

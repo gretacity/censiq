@@ -257,7 +257,7 @@ app.syncNow = function() {
     // //syncButton.html("Sincronizzato...");
     syncButton.addClass('ui-disabled');
     
-//console.log('Synchronizing entity with ID ' + itemId);
+console.log('Synchronizing entity with ID ' + itemId);
     services.uploadEntity(itemId, function(parItemId, response) {
         //sincronizzato...
         //syncButton.html("Sincronizzato");

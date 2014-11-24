@@ -123,12 +123,12 @@ var data = {
                                                                         "census_id integer, picture_key text, " +
                                                                         "data blob)");
                     //tx.executeSql("create table if not exists gr_censimento_guardrail (id integer not null primary key autoincrement, " );
-                    tx.executeSql("create table if not exists gr_censimento_guardrail (id integer not null primary key autoincrement, " +
+                    /*tx.executeSql("create table if not exists gr_censimento_guardrail (id integer not null primary key autoincrement, " +
                                                                                         "parent text, fine int, sequenza int, nome_inizio text"+
                                                                                         "numero_nastri_smontaggio int, numero_pali_smontaggio int,"+
                                                                                         "gruppi_terminali_smontaggio text, tipologia_barriera_smontaggio text,"+
                                                                                         "numero_nastri_montaggio int, numero_pali_montaggio int,"+
-                                                                                        "gruppi_terminali_montaggio text, tipologia_barriera_montaggio text, id_inizio integer autoincrement)");
+                                                                                        "gruppi_terminali_montaggio text, tipologia_barriera_montaggio text, id_inizio integer autoincrement)"); */
                     // Other support tables used by roadsign census
                     tx.executeSql("create table if not exists rs_manufacturers (name text primary key, auth_no text)");
                     tx.executeSql("create table if not exists rs_installers (name text primary key)");
@@ -571,16 +571,11 @@ var data = {
             tx.executeSql(query, params, function(tx2, resultSet) {
                 //console.log("QUERY DATA",query);
                 console.log("Saved Census with id " + resultSet.insertId);
-                
                 var censusId = resultSet.insertId;
-                
                 // Update entity
                 entity.id = censusId;
-                
                 for(var k in entity.pictures) {
-                    
                     console.log("saving picture with key " + k + " for census with id " + censusId);
-                    
                     var query2 = "insert into pictures (census_id, picture_key, data) values (?, ?, ?)";
                     var params2 = [
                         censusId,
