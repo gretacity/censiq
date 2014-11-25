@@ -15,6 +15,7 @@ var geoLocation = {
         url += "key="+config.GOOGLE_MAPS_API_KEY+"&sensor="+config.GOOGLE_MAPS_SENSOR;
         
         $.getScript(url, function( data, textStatus, jqxhr ) {
+            //
             //console.log(data ); // Data returned
             //console.log(textStatus ); // Success
             //console.log(jqxhr.status ); // 200
@@ -43,7 +44,7 @@ var geoLocation = {
         }
         
         navigator.geolocation.getCurrentPosition(function(position) {  
-            console.log
+            //console.log
             // success
             if(successCallback) successCallback(position);
         }, function (error) {
@@ -77,7 +78,7 @@ var geoLocation = {
     },
     
     reverseGeocoding: function(params, successCallback) {
-        console.log('params',params);
+        //console.log('params',params);
             //var lat = params.lat;
             //var lng = params.lng;
             //params.lat=41.4731791;

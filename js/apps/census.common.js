@@ -34,7 +34,7 @@ app.acquireGeoCoordinates = function() {
 
             $('#geoStatusTitle').html('Aggiorna');
             $('#geoStatusText').html('Posizione acquisita<br/>  Longitudine e Latitudine:' + app.census.position.toString()+ '<br/> Altitudine:' +app.census.position.altitude+'m');
-            console.log('tostring',app.census.position.altitude);
+            //console.log('tostring',app.census.position.altitude);
             if((position.coords.accuracy > config.GEO_OTPS_MINIMUM_ACCURACY_REQUIRED) &&
                (helper.isOnline())) {
                 // Position is not so accurate
@@ -142,7 +142,7 @@ app.closeMap = function(confirmed) {
     if(confirmed) {
         if(app._adjustedCoords != null) {
             page.injector.GeoCoordinatesAcquired(app.census.position);
-            console.log('closemap',app.census.position);
+            //console.log('closemap',app.census.position);
             
             //app.census.position.latitude = app._adjustedCoords.lat();
             //app.census.position.longitude = app._adjustedCoords.lng();
