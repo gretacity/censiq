@@ -33,7 +33,7 @@ app.acquireGeoCoordinates = function() {
             $latLng.val(position.coords.latitude + '/' + position.coords.longitude);
 
             $('#geoStatusTitle').html('Aggiorna');
-            $('#geoStatusText').html('Posizione acquisita ' + app.census.position.toString()+ ' / ' +app.census.position.altitude);
+            $('#geoStatusText').html('Posizione acquisita<br/>  Longitudine e Latitudine:' + app.census.position.toString()+ '<br/> Altitudine:' +app.census.position.altitude+'m');
             console.log('tostring',app.census.position.altitude);
             if((position.coords.accuracy > config.GEO_OTPS_MINIMUM_ACCURACY_REQUIRED) &&
                (helper.isOnline())) {
@@ -88,6 +88,7 @@ app.openMap = function() {
     
     var lat = app.census.position.latitude;
     var lng = app.census.position.longitude;
+    var alt = app.census.position.altitude;
     
     // ROADMAP, SATELLITE, HYBRID, TERRAIN 
     var options = {
@@ -98,7 +99,7 @@ app.openMap = function() {
     
     if(app._map == null) {
         app._map = new google.maps.Map(document.getElementById('map'), options);
-        var markerPoint = new google.maps.LatLng(lat, lng);
+        var markerPoint = new google.maps.LatLng(lat, lng);///---
         app._marker = new google.maps.Marker({
             position: markerPoint,
             map: app._map,
@@ -107,11 +108,26 @@ app.openMap = function() {
             title: 'Posizione del segnale'
         });
         google.maps.event.addListener(
+                app._map,
+                'click',
+                function(e) {
+                    app._marker.setPosition(e.latLng);
+                    app._adjustedCoords = app._marker.getPosition();                
+                    app.census.position.latitude =app._marker.getPosition().lat();
+                    app.census.position.longitude =app._marker.getPosition().lng();
+                    page.injector.GeoCoordinatesAcquired(app.census.position);   
+                });
+        google.maps.event.addListener(
             app._marker, 
             'dragend', 
             function() {
-                app._adjustedCoords = app._marker.getPosition();
-        });
+                app._adjustedCoords = app._marker.getPosition();                
+                app.census.position.latitude =app._marker.getPosition().lat();
+                app.census.position.longitude =app._marker.getPosition().lng();
+                page.injector.GeoCoordinatesAcquired(app.census.position);             
+            });
+            
+            
         setTimeout(function(){
             helper.maximizeMap('#map');
         },100);
@@ -125,11 +141,15 @@ app.openMap = function() {
 app.closeMap = function(confirmed) {
     if(confirmed) {
         if(app._adjustedCoords != null) {
-            app.census.position.latitude = app._adjustedCoords.lat();
-            app.census.position.longitude = app._adjustedCoords.lng();
-            app.census.position.accuracy = 0;
+            page.injector.GeoCoordinatesAcquired(app.census.position);
+            console.log('closemap',app.census.position);
+            
+            //app.census.position.latitude = app._adjustedCoords.lat();
+            //app.census.position.longitude = app._adjustedCoords.lng();
+            //app.census.position.accuracy = 0;
             $('#latLng').val(app.census.position.latitude+'/'+app.census.position.longitude);
         }
+        $('#geoStatusText').html('Posizione acquisita<br/>  Longitudine e Latitudine:' + app.census.position.toString()+ '<br/> Altitudine:' +app.census.position.altitude+'m');
         $('#positionIsCorrect').val('1');
         $('#correctPositionPanel').show();
         $('#correctPositionPanel').html(

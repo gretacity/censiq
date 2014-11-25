@@ -115,7 +115,7 @@ var page = {
                                     '</li>' +
                                     '<li>' +
                                         '<input type="hidden" id="latLng" />' +
-                                        '<label for="latLng">Latitudine e longitudine</label>' +
+                                        '<label for="latLng">Latitudine, longitudine e altitudine</label>' +
                                         '<p id="geoStatusText" style="white-space:normal;"></p>' +
                                     '</li>' +
                                     
@@ -340,7 +340,6 @@ var page = {
         var city;
         var village;
         var latlng;
-        console.log("pos", pos);
         
         geoLocation.reverseGeocoding(pos, function(result) {
 //console.log(result);
