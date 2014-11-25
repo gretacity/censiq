@@ -23,22 +23,24 @@ app.acquireGeoCoordinates = function() {
     
     geoLocation.acquireGeoCoordinates(
         function(position) {
-            
             // Update Census object
             app.census.position.latitude = position.coords.latitude;
             app.census.position.longitude = position.coords.longitude;
             app.census.position.accuracy = position.coords.accuracy;
-
+            app.census.position.altitude = position.coords.altitude;
+            
             $('#getCoordinatesButton').removeClass('ui-disabled');
             $latLng.val(position.coords.latitude + '/' + position.coords.longitude);
 
             $('#geoStatusTitle').html('Aggiorna');
-            $('#geoStatusText').html('Posizione acquisita ' + app.census.position.toString());
-            
+            $('#geoStatusText').html('Posizione acquisita ' + app.census.position.toString()+ ' / ' +app.census.position.altitude);
+            console.log('tostring',app.census.position.altitude);
             if((position.coords.accuracy > config.GEO_OTPS_MINIMUM_ACCURACY_REQUIRED) &&
                (helper.isOnline())) {
                 // Position is not so accurate
+                page.injector.GeoCoordinatesAcquired(app.census.position);
                 $('#correctPositionPanel').html(
+                        //console.log('coord',);
                     "Le coordinate geografiche acquisite non sono sufficientemente accurate.<br />"+ 
                     "E' necessario interventire manualmente correggendo la posizione sulla mappa."
                 );
@@ -54,6 +56,7 @@ app.acquireGeoCoordinates = function() {
             app.census.position.latitude = 0;
             app.census.position.longitude = 0;
             app.census.position.accuracy = 0;
+            app.census.position.altitude = 0;
             
             $latLng.val('');
             $('#getCoordinatesButton').removeClass('ui-disabled');

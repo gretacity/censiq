@@ -33,15 +33,17 @@ var geoLocation = {
         if(config.EMULATE_ON_BROWSER) {
             //errorCallback('errorino');return;
             if(successCallback) {
-                var lat = 38.858364, lng = 16.549469, accuracy = 15;
+                //var lat = 38.858364, lng = 16.549469, accuracy = 15;
+                var lat = 38.9059348, lng =16.5979429, accuracy = 15, altitude=10;
                 successCallback(
-                    {coords: {longitude: lng, latitude: lat, accuracy: accuracy}}
+                    {coords: {longitude: lng, latitude: lat, accuracy: accuracy, altitude: altitude}}
                 );
             }
             return;
         }
         
         navigator.geolocation.getCurrentPosition(function(position) {  
+            console.log
             // success
             if(successCallback) successCallback(position);
         }, function (error) {
@@ -73,7 +75,35 @@ var geoLocation = {
             if(errorCallback) errorCallback(errorMessage, error);
         }, options);
     },
-
+    
+    reverseGeocoding: function(params, successCallback) {
+        console.log('params',params);
+            //var lat = params.lat;
+            //var lng = params.lng;
+            //params.lat=41.4731791;
+            //params.lng=12.8893273;
+    //*params.lat = 38.827707; params.lng = 16.628456; // Via Caprera 144
+    //params.lat = 38.827512; params.lng = 16.627475; // Via Niccoloso da Recco 6
+            //geoLocation._googleReverseGeocoding(params, successCallback);
+            geoLocation._osmReverseGeocoding(params, successCallback);
+        },
+        _osmReverseGeocoding: function(params, successCallBack) {
+        // http://nominatim.openstreetmap.org/reverse?lat=38.858364&lon=16.549469&format=json&addressdetails=1&zoom=18
+        var url = 'http://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&zoom=18&lat=' + params.latitude +'&lon=' + params.longitude;
+        
+        $.get(url, function(result) {
+            console.log("result",result);
+            var retVal = {
+                prov: result.address.county,
+                city: result.address.city,
+                town: result.address.town,
+                village: result.address.village,
+                road: result.address.road,
+                streetNumber: result.address.street_number,
+            };
+            successCallBack(retVal);
+        });
+    }
     
     
 }

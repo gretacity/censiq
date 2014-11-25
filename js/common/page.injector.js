@@ -36,7 +36,7 @@ var page = {
             var content =   '<div data-role="header" data-position="fixed">' +
 								'<a href="#" data-rel="back" class="ui-btn ui-btn-icon-left ui-btn-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-back ui-alt-icon ui-nodisc-icon"></a>' +
                                 '<a href="index.html" id="homeButton" rel="external" class="ui-btn ui-btn-icon-right ui-btn-right ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-home ui-alt-icon ui-nodisc-icon">Home</a>' +
-                                '<h1>' + title + '</h1>' +
+                                '<h1 class="title">' + title + '</h1>' +
                             '</div>' +
                             '<div data-role="main" class="ui-content">' +
                                 
@@ -82,7 +82,7 @@ var page = {
             var content =   '<div data-role="header" data-position="fixed">' +
 				'<a href="#" data-rel="back" class="ui-btn ui-btn-icon-left ui-btn-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-back ui-alt-icon ui-nodisc-icon"></a>' +
                                 '<a href="index.html" id="homeButton" rel="external" class="ui-btn ui-btn-icon-right ui-btn-right ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-home ui-alt-icon ui-nodisc-icon">Home</a>' +
-                                '<h1>' + title + '</h1>' +
+                                '<h1 class="title">' + title + '</h1>' +
                             '</div>' +
                             
                             '<div data-role="main" class="ui-content">' +
@@ -123,12 +123,12 @@ var page = {
                                     '<li id="openMapPanel" style="display:none;">' +
                                         '<input type="hidden" id="positionIsCorrect" />' +
                                         '<a href="#" id="openMapPageButton">' +
-											'<div>'+
-												'<img src="img/maps.png" class="ui-li-icon" style="width:2.5em; float:left;">' +
-												'<label>Perfeziona sulla mappa</label>' +
-												'<p id="correctPositionPanel" style="_font-size:1em;color:#d00;white-space: normal;">' +
-												'</p>' +
-											'</div>'+
+                                        '<div>'+
+                                                '<img src="img/maps.png" class="ui-li-icon" style="width:2.5em; float:left;">' +
+                                                '<label>Perfeziona sulla mappa</label>' +
+                                                '<p id="correctPositionPanel" style="_font-size:1em;color:#d00;white-space: normal;">' +
+                                                '</p>' +
+                                        '</div>'+
                                         '</a>' +
                                     '</li>';
             if(params.additionalContent) {
@@ -160,7 +160,7 @@ var page = {
             var content =   '<div data-role="header" data-position="fixed">' +
                                 '<a href="#" data-rel="back" class="ui-btn ui-btn-icon-left ui-btn-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-back ui-alt-icon ui-nodisc-icon"></a>' +
                                 '<a href="index.html" id="homeButton" rel="external" class="ui-btn ui-btn-icon-right ui-btn-right ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-home ui-alt-icon ui-nodisc-icon">Home</a>' +
-                                '<h1>' + title + '</h1>' +
+                                '<h1 class="title">' + title + '</h1>' +
                             '</div>' +
                             '<div data-role="main" class="ui-content">' +
                                 
@@ -223,7 +223,7 @@ var page = {
             var content =   '<div data-role="header" data-position="fixed">' +
                                     '<a href="#" data-rel="back" class="ui-btn ui-btn-icon-left ui-btn-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-back ui-alt-icon ui-nodisc-icon"></a>' +
 									'<a href="index.html" id="homeButton" rel="external" class="ui-btn ui-btn-icon-left ui-btn-right ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-home ui-alt-icon ui-nodisc-icon">Home</a>' +
-                                '<h1>' + title + '</h1>' +
+                                '<h1 class="title">' + title + '</h1>' +
                             '</div>' +
                             '<div data-role="main" class="ui-content">' +
                                 '<ul data-role="listview" data-inset="true">' +
@@ -259,7 +259,7 @@ var page = {
             var content ='<div data-role="header" data-position="fixed">' +
 				'<a href="#" data-rel="back" class="ui-btn ui-btn-icon-left ui-btn-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-back ui-alt-icon ui-nodisc-icon"></a>' +
                                 '<a href="index.html" id="homeButton" rel="external" class="ui-btn ui-btn-icon-right ui-btn-right ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-home ui-alt-icon ui-nodisc-icon">Home</a>' +
-                                '<h1>' + params.title + '</h1>' +
+                                '<h1 class="title">' + params.title + '</h1>' +
                             '</div>' +
                             '<div data-role="main" class="ui-content">';
             
@@ -333,6 +333,33 @@ var page = {
                 }
             });
             $('.FineSi').hide();
-        }
+        },
+        
+        GeoCoordinatesAcquired: function(pos) {
+        var town;
+        var city;
+        var village;
+        var latlng;
+        console.log("pos", pos);
+        
+        geoLocation.reverseGeocoding(pos, function(result) {
+//console.log(result);
+                
+            if(result) {
+                $('#street', $.mobile.activePage).val(result.road);
+                $('#streetNumber', $.mobile.activePage).val(result.streetNumber);
+                $('#provincia', $.mobile.activePage).val(result.prov);
+                if (result.village != null ){                
+                    $('#comune', $.mobile.activePage).val(result.village);
+                }
+                else if (result.town != null ){                
+                    $('#comune', $.mobile.activePage).val(result.town);
+                }
+                else
+                    $('#comune', $.mobile.activePage).val(result.city);
+                console.log(result);
+            }
+        });
+    },
     }
 }
