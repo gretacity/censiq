@@ -237,7 +237,7 @@ var page = {
             /*}*/
             if(continueLink != "") {
                 content +=          '<li>' +
-                                        '<a href="' + continueLink + '">Censisci un altro bene</a>' +
+                                        '<a href="index.html#censusTypePage" rel="external">Censisci un altro bene</a>' +
                                     '</li>';
             }
             content +=              '<li>' +

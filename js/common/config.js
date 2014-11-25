@@ -22,9 +22,9 @@ var config = {
     
     // To speed up development / testing
     // In release mode they must be empty
-    QR_CODE_TEST: '4000000031',
-    LOGIN_DEFAULT_USERNAME: 'ancona@nomail.it',
-    LOGIN_DEFAULT_PASSWORD: 'ancona',
+    QR_CODE_TEST: '',
+    LOGIN_DEFAULT_USERNAME: '',
+    LOGIN_DEFAULT_PASSWORD: '',
     
     
     URL_BASE: 'http://www.gretacity.com',
@@ -52,8 +52,8 @@ var config = {
     
     CAMERA_QUALITY: 25, //25
     CAMERA_CORRECT_ORIENTATION: true,
-    CAMERA_TARGET_WIDTH: 600, //300, null
-    CAMERA_TARGET_HEIGHT: 800, //400, null
+    CAMERA_TARGET_WIDTH: 1600, //300, null
+    CAMERA_TARGET_HEIGHT: 1200, //400, null
     CAMERA_SAVE_TO_PHOTO_ALBUM: false,
     CAMERA_ALLOW_EDIT: false,
     
