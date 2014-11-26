@@ -1,4 +1,3 @@
-
 var CensusTypes = {
     undefinedType: 0,
     cityAsset: 1,

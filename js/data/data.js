@@ -14,7 +14,6 @@ var data = {
             case CensusTypes.guardrail:
                 //console.log("Guardrail-data",data);
                 handler = data.guardrail;
-                
                 //console.log("Guardrail-Handler",handler);
                 break;
             default:
@@ -263,20 +262,17 @@ var data = {
                     }
                     break;
                                     */
-                
-            }
-        },
-        function(error) {
-            console.error(error);
-        }, function() {
-            console.log((new Date()).toTimeString() + ' finished update ' + key);
-        });
-    },
-    
+                           }
+                       },
+                       function(error) {
+                           console.error(error);
+                       }, function() {
+                           console.log((new Date()).toTimeString() + ' finished update ' + key);
+                       });
+                   },    
     
     // TODO Move in /data/census.roadsign.js
     updateRoadSignImages: function(downloadedData, fs) {
-        
         if(typeof(fs) == 'undefined') return;
         
         var i = -1;
@@ -294,9 +290,7 @@ var data = {
         };
         
         var updateRoadSignImageItem = function(id, content, completedCallback) {
-            
             //console.log('Processing row with ID ' + id);
-            
             if((content || '') == '') {
                 //console.log('No content for row with ID ' + id);
                 completedCallback();
@@ -343,8 +337,7 @@ var data = {
         
         // Start processing of queue
         getItemFromQueue();
-    },
-    
+    },    
     
     testUpdate: function() {
         
@@ -374,15 +367,6 @@ var data = {
             });
         });
     },
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // TODO Move in /data/census.roadsign.js
     // TODO Rename to roadSignLookupTable
@@ -543,7 +527,6 @@ var data = {
     
     
     save: function(entity) {
-        
         entity.status = this.REC_STATUS_ADDED;
         var serialized = data.serialize(entity); // old code -> entity.serialize()
         
@@ -552,24 +535,26 @@ var data = {
         data._db.transaction(function(tx) {
             
             var query = "insert into census (date_added, qr_code, lat, lng, accuracy, fixed_on_map, status, entity_type, entity_value) " +
-                                    "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             var params = [
                 //(new Date()).toYMDHMS(),
                 entity.dateAdded.toYMDHMS(),
                 entity.qrCode,
                 entity.position.latitude,
                 entity.position.longitude,
+                //entity.position.altitude,
                 entity.position.accuracy,
                 entity.fixedOnMap,
                 entity.status, 
                 entity.entityType,
                 serialized
             ];
-            
+            //console.log("PARAMS-DATA_ALTITUDINE", entity.position.altitude);
             //console.log("PARAMS-DATA",params);
+            //console.log("QUERY DATApre",query);
             
             tx.executeSql(query, params, function(tx2, resultSet) {
-                //console.log("QUERY DATA",query);
+                console.log("QUERY DATApost",query);
                 console.log("Saved Census with id " + resultSet.insertId);
                 var censusId = resultSet.insertId;
                 // Update entity

@@ -9,6 +9,7 @@ var app = {
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
+    
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         /*document.addEventListener('online', function() {
@@ -29,6 +30,7 @@ var app = {
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
+    
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         
@@ -113,21 +115,19 @@ var app = {
         }
     },
     
-    
     lockUI: function() {
         $('#homeButton').addClass('ui-disabled');
         //$('#syncButton').addClass('ui-disabled');
         $('#syncButton').html('Interrompi');
         $('#deleteButton').addClass('ui-disabled');
     },
+    
     unlockUI: function() {
         $('#homeButton').removeClass('ui-disabled');
         //$('#syncButton').html('Sincronizza').removeClass('ui-disabled');
         $('#syncButton').html('').removeClass('ui-disabled');
         $('#deleteButton').removeClass('ui-disabled');
     },
-    
-    
     
     deleteItems: function() {
         helper.confirm('Eliminare in modo definitivo gli elementi selezionati?', function(buttonIndex) {
@@ -146,7 +146,6 @@ var app = {
         }, 'Conferma eliminazione', ['Si', 'No']);
     },
     
-    
     updateSyncProgress: function() {
         var done = app.synchronization.totSynchronized();
         var totItems = app.synchronization.totItems();
@@ -156,13 +155,6 @@ var app = {
         $('#progressIndicator').css('width', perc+'%');
         $('#log').html('Sincronizzato ' + done + " di " + totItems + "...");
     },
-    
-    
-    
-    
-    
-    
-    
     
     _synchronizing: false,
     
@@ -226,6 +218,7 @@ var app = {
         // Start synchronization
         app.syncNextItem();
     },
+    
     syncNextItem: function() {
         
         if((app.synchronization.queue.length == 0) || (!app._synchronizing)) {
@@ -247,6 +240,7 @@ var app = {
         
         services.uploadEntity(itemId, app.syncSuccess, app.syncError);
     },
+    
     syncSuccess: function(itemId, responseText) {
 
         console.log('synchronized item ' + itemId);
@@ -268,6 +262,7 @@ var app = {
         // ...and continue with synchronization
         app.syncNextItem();
     },
+    
     syncError: function(itemId, loginRequired, errorMessage, errorCode) {
         
         console.log('synchronized failed item ' + itemId + ', login required ' + loginRequired + ', ' + errorMessage);
@@ -291,6 +286,7 @@ helper.alert('Item with ID ' + itemId + "\ncode " + errorCode + ", " + errorMess
         // ...and continue with synchronization
         app.syncNextItem();
     },
+    
     syncFinished: function() {
         // Reached end of queue
         $('#progressContainer').hide();

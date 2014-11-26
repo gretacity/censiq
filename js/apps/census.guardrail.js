@@ -159,20 +159,35 @@ var app = {
             // Validate step 2
             stepValidCallback();
         } else if(stepIndex == app.STEP_3) {
-            // Validate step 3
-            stepValidCallback();
+            // Validate step 3 
+           //stepValidCallback();}
+           
+            if ($( "#radio-choice-21" ).is(':checked')){
+                    if($.trim($('#nameIni').val()) == '') {
+                        errors.push('specificare il nome');
+                        $('#nameIni').focus();
+                        stepNotValidCallback(errors);
+                        
+                    }
+                    else {
+                        stepValidCallback();
+                    }
+                }else {
+                        stepValidCallback();
+                    }
+        
         }
+               
     },
     
     
     stepStarted: function() {
         //
     },
-    stepCompleted: function() {
-        
+            
+    stepCompleted: function() {        
         // Current step
-        var step = $(this).attr('data-step');
-        
+        var step = $(this).attr('data-step');        
         // Valitate step once completed
         app.validateStep(step, function() {
             // Success: move forward
@@ -264,8 +279,9 @@ var app = {
         guardrailInfo.parent = $('#nomiInizio').val(); 
         
         guardrailInfo.fine = $('input[type="radio"].guardrail-mark2:checked').val();
-        //guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
+        guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
         guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
+        guardrailInfo.chiuso = $('input[type="radio"].guardrail-mark2:checked').val();
 
         //guardrailInfo.  = $('#nomeInizio').val();                              // nome inizio associato
         app.census.guardrail.guardrailInfo = guardrailInfo;

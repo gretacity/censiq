@@ -268,16 +268,16 @@ var page = {
                     '<input type="radio" name="radio-choice-2" class="guardrail-mark" id="radio-choice-21" value="1" /> <label for="radio-choice-21">Si</label>'+
                     '<input type="radio"  name="radio-choice-2" class="guardrail-mark" id="radio-choice-22" value="0"  /> <label for="radio-choice-22">No</label>'+
                     //---
-                    //'<div class="InizioSi">'+
-                    //'<label>Etichetta inizio tratto</label>'+
-                    //'<input type="text" id="nameIni" placeholder="Nome tratto"/>  </div>'+
+                    '<div class="InizioSi">'+
+                    '<label>Etichetta inizio tratto</label>'+
+                    '<input type="text" id="nameIni" placeholder="Nome tratto" required/>  </div>'+
                     '<div class="InizioNo">'+
                     '<label>Sequenza</label>'+
                     '<input type="number" id="SeqIni" placeholder="numero sequenza"/>'+
                     '<label>Scegli Guardrail</label>'+
                     //'<input type="text" id="nomiInizio" placeholder="Nome inizio"/>  </div>'+
                     '<select id="nomiInizio">'+
-                    '<option value="0">Qr Code Inizio</option>';
+                    '<option value="0">Nome Inizio</option>';
                     var NameIniziali = data.guardrail.getNomi();
                     /*console.log("NOME INIZIO",NameIniziali);
                     for(var i in NameIniziali) {
@@ -292,6 +292,7 @@ var page = {
                     '<input type="radio" name="radio-choice-21" class="guardrail-mark2" id="radio-choice-211" value="1" /> <label for="radio-choice-211">Si</label>'+
                     '<input type="radio" name="radio-choice-21" class="guardrail-mark2" id="radio-choice-221" value="0" /> <label for="radio-choice-221">No</label>'+
                     '<div class="FineSi"> <h4>Foto Finale</h4> '+
+                    //'<input type="hidden" id="chiuso" value="1"/>'+
                         '<div style="text-align:center;">' +
                             '<a href="#" data-viewtype="fotogr" data-showview style="display:none;">' +
                                 '<img src="" style="width:100%" />' +

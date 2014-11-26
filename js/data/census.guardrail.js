@@ -12,8 +12,9 @@ guardrail.guardrailInfo = function() {
     this.Mbarriera = '';                            // Tipologie Barriere Montaggio
     this.parent ='';                               // Inizio Tratto
     this.fine = '';                                 // Fine Tratto
-//    this.nomei='';                                  //nome inizio
+    this.nomei='';                                  //nome inizio
     this.sequenzai='';                              //numero sequenza
+    this.chiuso='';
     //this.nomea='';                                 //nome associato inizio
 };
 /*guardrail.guardInfo = function() {
@@ -35,8 +36,7 @@ Census.prototype.guardrail.guardrailInfo = new guardrail.guardrailInfo();
 
 
 
-data.guardrail = {    
-    
+data.guardrail = {       
     // Return the serialized entity string
     serialize: function(entity) {
         //console.log("SERIALIZE GUARDRAIL",entity);
@@ -56,7 +56,7 @@ data.guardrail = {
     
     // Return entity from a record
     deserialize: function(row) {
-        //console.log("DESERIALIZE GUARDRAIL",row);
+        console.log("DESERIALIZE GUARDRAIL",row);
         var census = new Census();
         census.id = row.id;
         census.dateAdded = row.date_added;
@@ -72,7 +72,6 @@ data.guardrail = {
         census.guardrail.provincia= tmp.provincia;
         census.guardrail.street = tmp.street;
         census.guardrail.streetNumber= tmp.streetNumber;
-        //census.guardrail.guardInfo=tmp.guards;
         census.guardrail.guardrailInfo= tmp.guardrailInfo;
         //console.log("FINE DESERIALIZE GUARDRAIL",census);
         return census;
@@ -85,7 +84,11 @@ data.guardrail = {
     // Prepare an entity to be formatted for sending on web server
     mapForService: function(entity) {
         var obj = {
-            gr_censimento: {
+            gr_censimento: {//questo arriva sul db, tabella gr_censimento
+                comune: entity.guardrail.comune,
+                provincia: entity.guardrail.provincia,
+                strada: entity.guardrail.street,
+                civico: entity.guardrail.streetNumber,
                 latitudine: entity.position.latitude,
                 longitudine: entity.position.longitude,
                 data_inserimento: entity.dateAdded,
@@ -102,9 +105,8 @@ data.guardrail = {
                 parent: entity.guardrail.guardrailInfo.parent,
                 fine: entity.guardrail.guardrailInfo.fine,
                 sequenza: entity.guardrail.guardrailInfo.sequenzai,
-                //nome_inizio: entity.guardrail.guardrailInfo.nomei
-                //nome_assegnato: entity.guardrail.guardrailInfo.nomea,
-                
+                nome_inizio: entity.guardrail.guardrailInfo.nomei,
+                chiuso: entity.guardrail.guardrailInfo.chiuso
             },
             //gr_censimento_info: [],
 
@@ -232,7 +234,8 @@ data.guardrail = {
                       console.log("ROW",row);
                       result[i] = {
                           //id: row['id'],
-                          qr: row['qr_code']
+                          qr: row['qr_code'],
+                          nomei : row['entity_value']
                       }
                  }callback(result); });                   
             }
@@ -240,16 +243,18 @@ data.guardrail = {
     },
     
     processPersonsResponse: function (response) {
-      //console.log ("RESPONSE",response);
+      console.log ("RESPONSE",response.length);
+       
       $.each(response, function(key, value) {   
-     $('#nomiInizio')
-         .append($("<option></option>")
-         .attr("value",value.qr)
-         .text(value.qr)); 
-      //console.log("KEY",value.qr);
-     //console.log("VALUES",value.id);
-    });
-
-      
-    }
+      var name = value.nomei; console.log('name',name);
+        var sub = name.indexOf('no'); //console.log('sub',sub);
+        var subSTR = name.substring(sub+8,value.nomei.length);
+        var finale = subSTR.indexOf('","s'); //console.log ('finale',finale);
+        var fine = subSTR.substring(0,finale); //console.log ('fine',fine);
+        if (fine.length >0) {
+            $('#nomiInizio')
+                    .append($("<option></option>")
+                    .attr("value",value.qr)
+                    .text(fine)); }
+      });}  
 };
