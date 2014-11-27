@@ -87,11 +87,11 @@
                         </ul>                    
                     </div>                    
                 </div>
-            </div>
-            
-            <div data-role="footer" class="footer"  data-position="fixed" align="center">
-                <a href="#" style="float:right;" class="ui-btn ui-icon-forward ui-btn-icon-center ui-btn-icon-notext ui-shadow ui-corner-all next-step" data-step="2">Avanti</a>
-                <div style="line-height:50px;">3 di 4</div>
+            </div>                         
+            <div data-role="footer" class="footer"  data-position="fixed" align="center" style="background:none !important; background-color: #f2f2f2 !important;">
+                <div style="line-height:25px; color:#0086cc;">3 di 4</div>
+                <a href="#" class="button-next next-step" data-step="2">AVANTI</a>
+                
             </div>
         </div>
         <!-- /roadSignStep2Page -->
@@ -111,13 +111,13 @@
         
         <!-- mapPage -->
         <div data-role="page" _data-dialog="true" _data-fullscreen="true" id="mapPage">
-            <div data-role="header" class="header" data-position="fixed">
+             <div data-role="header"  data-position="fixed">
                 <a href="javascript:app.closeMap(false)" class="ui-btn ui-btn-icon-left ui-btn-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-back ui-alt-icon ui-nodisc-icon">Annulla</a>
 				<h1>Mappa</h1>
                 <a href="javascript:app.closeMap(true)" class="ui-btn ui-corner-all ui-icon-check ui-btn-icon-left ui-btn-icon-notext ui-shadow ui-corner-all">Conferma</a>
 			</div>
-            <div data-role="main" cclass="ui-content" >
-                <div id="map"></div>
+            <div data-role="main" _class="ui-content">
+                <div id="map" style="height:100%;"></div>
             </div>
             <!-- <div data-role="footer" class="footer"  data-position="fixed"></div> -->
         </div>

@@ -277,18 +277,18 @@ app.syncNow = function() {
     }
     
     var html = syncButton.html();
-    // //syncButton.html("Sincronizzato...");
+    syncButton.html("Sincronizzato...");
     syncButton.addClass('ui-disabled');
     
 console.log('Synchronizing entity with ID ' + itemId);
     services.uploadEntity(itemId, function(parItemId, response) {
         //sincronizzato...
-        //syncButton.html("Sincronizzato");
+        syncButton.html("Sincronizzato");
         // Delete item from storage
         data.delete(parItemId, null);
         helper.alert('Sincronizzato', null, 'Sincronizza elemento');
     }, function(parItemId, loginRequired, errorMessage, errorCode) {
-        //syncButton.html("Impossibile sincronizzare");
+        syncButton.html("Impossibile sincronizzare");
         if(loginRequired) {
             var returnUrl = helper.getDocumentLocation();
             if((helper.getParamValue('id') || '') == '') {

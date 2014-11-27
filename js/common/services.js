@@ -32,7 +32,6 @@ var services = {
                 url = config.URL_BASE + config.URL_DATA_SUPPORTS;
                 break;
         }
-
         // Set session id
         url += '&session_id=' + auth.getSessionId() +
                 '&api=' + config.API_V + '&app=' + config.APP_NAME;
@@ -123,13 +122,13 @@ return;*/
                     dataType: "text",
                     crossDomain: true,
                 }).done(function(result) {
-console.log('services.uploadEntity success', result);
+//console.log('services.uploadEntity success', result);
                     if(successCallback) successCallback(itemId, result);
                 }).fail(function(jqXHR, textStatus, errorThrown) {
 
 
-console.log('services.uploadEntity', textStatus);
-console.log("JQXHR",jqXHR);
+//console.log('services.uploadEntity', textStatus);
+//console.log("JQXHR",jqXHR);
 //console.log(textStatus);return;
                     // Login required
                     var loginRequired = ((jqXHR.status == services.CODE_UNAUTHORIZED) || (jqXHR.status == services.CODE_FORBIDDEN));

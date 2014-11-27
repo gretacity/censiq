@@ -163,21 +163,18 @@ var app = {
            //stepValidCallback();}
            
             if ($( "#radio-choice-21" ).is(':checked')){
-                    if($.trim($('#nameIni').val()) == '') {
-                        errors.push('specificare il nome');
-                        $('#nameIni').focus();
-                        stepNotValidCallback(errors);
-                        
+                if($.trim($('#nameIni').val()) == '') {
+                    errors.push('specificare il nome');
+                    $('#nameIni').focus();
+                    stepNotValidCallback(errors);
+                }
+                else {
+                    stepValidCallback();
+                }
+            }else {
+                    stepValidCallback();
                     }
-                    else {
-                        stepValidCallback();
-                    }
-                }else {
-                        stepValidCallback();
-                    }
-        
         }
-               
     },
     
     

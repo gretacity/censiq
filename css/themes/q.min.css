@@ -216,7 +216,7 @@ html .ui-alt-icon .ui-radio-off:after {
 }
 .ui-bar-a,.ui-page-theme-a .ui-bar-inherit,html .ui-bar-a .ui-bar-inherit,html .ui-body-a .ui-bar-inherit,html body .ui-group-theme-a .ui-bar-inherit{
 	background-color:#0086cc ;
-	border-color:#004970 ;
+	//border-color:#004970 ;
 	color:#ffffff ;
 	text-shadow:0  1px  0  #444444 ;
 	font-weight:bold;
@@ -315,11 +315,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
 			
 			
 		}
-		 [data-role="header"] h1{overflow: visible !important; white-space: normal !important; margin:0 !important;} 
-[data-role="footer"] {
-	background:url('../../img/footer.png') no-repeat center center !important;
-	background-size: cover !important;
+[data-role="header"] h1{overflow: visible !important; white-space: normal !important; margin:0 !important;} 
+ [data-role="footer"] {
+     background-color: #fff !important;
+	 background:url('../../img/footer.png') no-repeat center center !important;
+	background-size: cover !important; 
+        border-color: #f2f2f2;
 	
+}
+.button-next{
+    border: none !important;
+    width: 90% !important;
+    padding:0 auto !important;
+    padding-bottom: 1.2em !important;
+    margin: 0 auto !important;
+    background:url('../../img/button3.png') center center no-repeat !important;
+    background-size: 100% 98% !important;
+    box-shadow: none;
+}
+.button-confirm{
+    border: none !important;
+    width: 90% !important;
+    padding:0 auto !important;
+    padding-bottom: 1.2em !important;
+    margin: 0 auto !important;
+    background:url('../../img/button4.png') center center no-repeat !important;
+    background-size: 100% 98% !important;
+    box-shadow: none;
 }
 .ui-icon-toolbar-button{
 	 margin: 0 !important;

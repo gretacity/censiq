@@ -73,24 +73,24 @@ var helper = {
     maximizeMap: function(map) {
         var mapEl = (typeof(map) == 'string') ? $(map) : map;
         var page = mapEl.closest('div[data-role="page"]');
-        console.log(page);
+//console.log("ID PAGE",page);
         var pageHeight = page.outerHeight();
-console.log(pageHeight);
+//console.log("Altezza PAGE",pageHeight);
         var height = 0;
         height += $('div[data-role="header"]', page).outerHeight();
-console.log(height);
+//console.log("ALTEZZA HEADER",height);
         height += $('div[data-role="footer"]', page).outerHeight();
-console.log(height);
+//console.log("ALTEZZA FOOTER + HEADER",height);
         $('div[data-role="main"]', page).children(':visible').each(function() {
             var el = $(this);
             if(el.attr('id') != mapEl.attr('id')) {
                 height += el.outerHeight();
             }
         });
-        console.log(height);
+//console.log("ALTEZZA TOTALE",height);
         mapEl.height(
             pageHeight - height-height
         );
-        console.log(mapEl.height());
+//console.log("ALTEZZA MAPPA",mapEl.height());
     }
 }

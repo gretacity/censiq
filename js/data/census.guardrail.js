@@ -56,7 +56,7 @@ data.guardrail = {
     
     // Return entity from a record
     deserialize: function(row) {
-        console.log("DESERIALIZE GUARDRAIL",row);
+        //console.log("DESERIALIZE GUARDRAIL",row);
         var census = new Census();
         census.id = row.id;
         census.dateAdded = row.date_added;
@@ -83,8 +83,10 @@ data.guardrail = {
     
     // Prepare an entity to be formatted for sending on web server
     mapForService: function(entity) {
+        //console.log("ENTITY",entity);
         var obj = {
-            gr_censimento: {//questo arriva sul db, tabella gr_censimento
+            gr_censimento: {
+                //questo arriva sul db, tabella gr_censimento
                 comune: entity.guardrail.comune,
                 provincia: entity.guardrail.provincia,
                 strada: entity.guardrail.street,
@@ -109,7 +111,6 @@ data.guardrail = {
                 chiuso: entity.guardrail.guardrailInfo.chiuso
             },
             //gr_censimento_info: [],
-
             pictures: {
                 front: entity.pictures['front'],
                 back: entity.pictures['back'],
@@ -118,20 +119,9 @@ data.guardrail = {
             }
             
         };
-           /* var entry = {
-                parent: guards.marking,
-                chiuso: guards.marking2,
-                sequenza: guards.sequenzai,
-                nome_inizio: guards.nomei,
-                nome_assegnato: guards.nomea,
-                fine: guards.marking2
-            };
-            obj.gr_censimento_info.push(entry);
-            console.log("OGGETTO GUARDRAIL",obj);*/
+        //console.log("OGGETTO GUARDRAIL",obj);
         return obj;
     },
-    
-   
     
     /***
      *  Insert or replace data in the support tables
@@ -141,12 +131,11 @@ data.guardrail = {
      *      owners: [{name: ''}],
      *  }
      */
+    
     updateSupportTables: function(params) {
         //console.log("TABLES");
         if(data._db == null) this.open();
-        
         data._db.transaction(function(t) {
-            
             if(params.grcen) {
                 //console.log("ROW",row);
                 // Update 
@@ -156,15 +145,6 @@ data.guardrail = {
                     t.executeSql(q, [row.guardrailInfo.nastri, row.guardrailInfo.pali, row.guardrailInfo.terminali,row.guardrailInfo.barriera, row.guardrailInfo.Mnastri,row.guardrailInfo.Mpali, row.guardrailInfo.Mterminali, row.guardrailInfo.Mbarriera,row.guardrailInfo.parent, row.guardrailInfo.fine, row.guardrailInfo.sequenzai ]);
                 }
             }
-/*
-            if(params.grinf) {
-                // Update installers
-                for(var i in params.installers) {
-                    var row = params.installers[i];
-                    var q = "insert or replace into gr_censimento_info (parent, chiuso, sequenza, nome_inizio, nome_assegnato, fine) values (?, ?,?, ?,?, ?,?)";
-                    t.executeSql(q, [row.guardInfo.marking, row.guardInfo.marking2, row.guardInfo.sequenzai, row.guardInfo.nomei, row.guardInfo.nomea, row.guardInfo.marking2 ]);
-                }
-            }*/
         });
     },
 
@@ -185,68 +165,33 @@ data.guardrail = {
             {name: 'Altro'}
         ];
     },
-    /*
-       getNameIniziali: function(successCallback,errorCallback) {
-        
-        if(data._db == null) data.open();
-        
-        data._db.transaction(function(tx) {
-            
-            var q = "select * from 'census' ";
-            tx.executeSql(q, [], function(tx, result) {
-                // success 
-                var itemCount = result.rows.length;
-                for(var i = 0; i < itemCount; i++) {
-                    var row = result.rows.item(i);
-                    console.log("ROW",row.id);
 
-                }
-            if(successCallback != null)
-            {
-                console.log("SUCCESS");
-                successCallback(result);};
-            }, function(tx, error) {
-                console.log("Errore",error);
-                if(errorCallback != null) errorCallback(error);
-            });
-        });
-
-        /*return [
-            {name: 'Inizio 1'},
-            {name: 'Inizio 2'}
-        ];
-        
-    }*/
     getNomi: function () {
       this.returnSQLArray('select * from census ', this.processPersonsResponse); 
     },
     
-    returnSQLArray: function (str,callback) 
-    {
+    returnSQLArray: function (str,callback) {
         if(data._db == null) data.open();
         var result = [];
-         data._db.transaction(
-            function (tx, results) {
-                 tx.executeSql(str, [], function(tx, rs) { 
-                    for(var i=0; i<rs.rows.length; i++) {
-                    
-                      var row = rs.rows.item(i);
-                      console.log("ROW",row);
-                      result[i] = {
-                          //id: row['id'],
-                          qr: row['qr_code'],
-                          nomei : row['entity_value']
-                      }
-                 }callback(result); });                   
-            }
-         );   
-    },
+        data._db.transaction(
+                function (tx, results) {
+                    tx.executeSql(str, [], function(tx, rs) { 
+                        for(var i=0; i<rs.rows.length; i++) {
+                            var row = rs.rows.item(i);
+                            //console.log("ROW",row);
+                            result[i] = {
+                                //id: row['id'],
+                                qr: row['qr_code'],
+                                nomei : row['entity_value']
+                            }
+                        }callback(result); });                   
+                });   
+            },
     
     processPersonsResponse: function (response) {
-      console.log ("RESPONSE",response.length);
-       
-      $.each(response, function(key, value) {   
-      var name = value.nomei; console.log('name',name);
+      //console.log ("RESPONSE",response.length);
+      $.each(response, function(key, value) {
+        var name = value.nomei; //console.log('name',name);
         var sub = name.indexOf('no'); //console.log('sub',sub);
         var subSTR = name.substring(sub+8,value.nomei.length);
         var finale = subSTR.indexOf('","s'); //console.log ('finale',finale);

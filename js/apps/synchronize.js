@@ -45,10 +45,10 @@ var app = {
             var itemCount = result.rows.length;
             var html = '';
             for(var i = 0; i < itemCount; i++) {
-                //console.log('itemcout',itemCount);
+                console.log('itemcout',itemCount);
                 var row = result.rows.item(i);
                 //var obj = data.cityAsset.deserialize(row);
-                //console.log("OGGETTO Synch ",row);
+                //console.log("OGGETTO Synch ",row); //row ha latitudine e longitudine
                 //console.log("TIPO=",row.entity_type);
                 var obj = data.deserialize(row, row.entity_type);
                 var itemId = 'item' + obj.id;
@@ -85,8 +85,7 @@ var app = {
             receivedElement.setAttribute('style', 'display:block;');
         }
         console.log('Received Event: ' + id);
-    },
-    
+    },    
     
     checkConnection: function() {
         if(helper.isOnline()) {
@@ -94,10 +93,9 @@ var app = {
             return true;
         }
         $('#syncButton').addClass('ui-disabled');
-        helper.alert('Per procedere con la sincronizzazione è necessario disporre di una connessione attiva', null, 'Connessione non disponibile');
+        helper.alert('Per procedere con la sincronizzazione è necessario disporre di una connessione WI-FI attiva', null, 'Connessione non disponibile');
         return false;
-    },
-    
+    },    
     
     countItemToSync: function() {
         var connectionAvailable = helper.isOnline();
@@ -118,14 +116,14 @@ var app = {
     lockUI: function() {
         $('#homeButton').addClass('ui-disabled');
         //$('#syncButton').addClass('ui-disabled');
-        $('#syncButton').html('Interrompi');
+        $('#syncButton').html('INTERROMPI');
         $('#deleteButton').addClass('ui-disabled');
     },
     
     unlockUI: function() {
         $('#homeButton').removeClass('ui-disabled');
-        //$('#syncButton').html('Sincronizza').removeClass('ui-disabled');
-        $('#syncButton').html('').removeClass('ui-disabled');
+        $('#syncButton').html('SINCRONIZZA').removeClass('ui-disabled');
+        //$('#syncButton').html('').removeClass('ui-disabled');
         $('#deleteButton').removeClass('ui-disabled');
     },
     
@@ -178,7 +176,7 @@ var app = {
         
         // Stop synchronization if already started
         if(app._synchronizing) {
-            $('#syncButton').html("Interruzione...").addClass('ui-disabled');
+            $('#syncButton').html("INTERRUZIONE...").addClass('ui-disabled');
             app._synchronizing = false;
             return;
         }

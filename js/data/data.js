@@ -28,7 +28,6 @@ var data = {
     },
     
     deserialize: function(serialized, entityType) {
-        //console.log("THIS DESE",this);
         return data._getEntityHandler(entityType).deserialize(serialized);
     },
     
@@ -92,7 +91,7 @@ var data = {
     },
     
     initialize: function(successCallback, errorCallback) {
-        console.log("initialize");
+        console.log("initialize table");
         // Ensure that the tables exist
         if(data._db == null) this.open();
         
@@ -466,6 +465,7 @@ var data = {
     
     
     fetch: function(parameters, successCallback, errorCallback) {
+        console.log ("Fetch");
         //console.log('fetch parameters',parameters);
         if(data._db == null) data.open();
         
@@ -527,6 +527,7 @@ var data = {
     
     
     save: function(entity) {
+        console.log("DATA -> SAVE");
         entity.status = this.REC_STATUS_ADDED;
         var serialized = data.serialize(entity); // old code -> entity.serialize()
         
@@ -554,7 +555,7 @@ var data = {
             //console.log("QUERY DATApre",query);
             
             tx.executeSql(query, params, function(tx2, resultSet) {
-                console.log("QUERY DATApost",query);
+                //console.log("QUERY DATApost",query);
                 console.log("Saved Census with id " + resultSet.insertId);
                 var censusId = resultSet.insertId;
                 // Update entity
@@ -596,6 +597,7 @@ var data = {
                 if(successCallback) successCallback(resultSet);
             });
         });
+       
     },
     
     

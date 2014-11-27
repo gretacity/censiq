@@ -136,10 +136,10 @@ var page = {
             }
             content +=          '</ul>' +
                             '</div>' +
-                            '<div data-role="footer" data-position="fixed" align="center">' +                                
-                                '<a href="#" style="float:right;" id="nextStep' + dataStep + 'Button" class="ui-btn ui-icon-forward ui-btn-icon-center ui-btn-icon-notext ui-shadow ui-corner-all next-step" data-step="' + dataStep + '">Avanti</a>' +
-                                '<div style="line-height:50px;">' + footerText + '</div>' +
-                            '</div>';
+                            '<div data-role="footer" class="footer"  data-position="fixed" align="center" style="background:none !important; background-color: #f2f2f2 !important;">'+
+                            '<div style="line-height:25px; color:#0086cc;">' + footerText + '</div>'+
+                            '<a href="#" id="nextStep' + dataStep + 'Button" class="button-next next-step" data-step="' + dataStep + '">AVANTI</a>'+
+                            '</div>'; 
             $(selector).html(content).page();
         },
         
@@ -203,11 +203,11 @@ var page = {
                                     '</li>' +
                                 '</ul>' +
                             '</div>' +
-                            '<div data-role="footer" data-position="fixed" align="center">' +
-               
-                                '<a href="#" style="float:right;" id="nextStep' + dataStep + 'Button" class="ui-btn ui-icon-forward ui-btn-icon-center ui-btn-icon-notext ui-shadow ui-corner-all next-step" data-step="' + dataStep + '">Avanti</a>' +                
-                                '<div style="line-height:50px;">' + footerText + '</div>' +
-                            '</div>';
+                            '<div data-role="footer" class="footer"  data-position="fixed" align="center" style="background:none !important; background-color: #f2f2f2 !important;">'+
+                            '<div style="line-height:25px; color:#0086cc;">' + footerText + '</div>'+
+                            '<a href="#" id="nextStep' + dataStep + 'Button" class="button-next next-step" data-step="' + dataStep + '">AVANTI</a>'+
+                            '</div>'; 
+                            
             $(selector).html(content).page();
         },
         
@@ -303,9 +303,9 @@ var page = {
                     '</div>'+
                     '</fieldset>';
             content += '</div>'+
-            '<div data-role="footer" class="footer"  data-position="fixed" align="center">'+
-            '<a href="#" id="saveButton" style="float:right;" class="ui-btn ui-icon-check ui-btn-icon-center ui-btn-icon-notext ui-shadow ui-corner-all next-step" data-step="3">Salva</a>'+
-            '<div style="line-height:50px;">4 di 4</div>'+
+            '<div data-role="footer" class="footer"  data-position="fixed" align="center" style="background:none !important; background-color: #f2f2f2 !important;">'+
+            '<div style="line-height:25px; color:#0086cc;">4 di 4</div>'+
+            '<a href="#" id="saveButton" class="button-confirm next-step" data-step="3">SALVA</a>'+
             '</div>';            
             $(selector).html(content).page();
             //inizio
@@ -342,24 +342,23 @@ var page = {
         var village;
         var latlng;
         
-        geoLocation.reverseGeocoding(pos, function(result) {
-//console.log(result);
-                
-            if(result) {
-                $('#street', $.mobile.activePage).val(result.road);
-                $('#streetNumber', $.mobile.activePage).val(result.streetNumber);
-                $('#provincia', $.mobile.activePage).val(result.prov);
-                if (result.village != null ){                
-                    $('#comune', $.mobile.activePage).val(result.village);
+            geoLocation.reverseGeocoding(pos, function(result) {
+                //console.log(result);
+                if(result) {
+                    $('#street', $.mobile.activePage).val(result.road);
+                    $('#streetNumber', $.mobile.activePage).val(result.streetNumber);
+                    $('#provincia', $.mobile.activePage).val(result.prov);
+                    if (result.village != null ){                
+                        $('#comune', $.mobile.activePage).val(result.village);
+                    }
+                    else if (result.town != null ){                
+                        $('#comune', $.mobile.activePage).val(result.town);
+                    }
+                    else
+                        $('#comune', $.mobile.activePage).val(result.city);
+                    //console.log(result);
                 }
-                else if (result.town != null ){                
-                    $('#comune', $.mobile.activePage).val(result.town);
-                }
-                else
-                    $('#comune', $.mobile.activePage).val(result.city);
-                console.log(result);
-            }
-        });
-    },
+            });
+        },
     }
 }
