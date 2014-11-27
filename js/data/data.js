@@ -579,8 +579,7 @@ var data = {
                     });
                 }
             });
-        });
-        
+        });        
     },
     
     delete: function(id, successCallback) {
