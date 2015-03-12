@@ -2,15 +2,28 @@
 guardrail = function() {},
 guardrail.guardrailInfo = function() {
     // Front
-    this.nastri = 0;                                 //numero Nastri Smontaggio
-    this.pali = 0;                                   // numero pali Smontaggio
-    this.terminali = '';                            // gruppo terminali Smontaggio
-    this.barriera = '';                              // tipologie barriere Smontaggio
-    this.Mnastri = 0;                               // numero Nastri Montaggio
-    this.Mpali = 0;                                 // numero Pali Montaggio
-    this.Mterminali = '';                           // gruppo terminali Montaggio
-    this.Mbarriera = '';                            // Tipologie Barriere Montaggio
-    this.parent ='';                               // Inizio Tratto
+    this.classe = '';                                 
+    this.spartitraffico = '';                                   
+    this.pianoVariabile = 0;                            
+    this.tipologia = '';                              
+    this.fasce = '';
+    this.tipologiaPaletto = '';
+    this.sezione = 0;
+    this.interasse = 0;                           
+    this.ancoraggio = '';     
+    this.classeElemento='';
+    this.parent =''; // Inizio Tratto
+    this.kmInizio='';
+    this.textAlberi='';
+    this.textPali='';
+    this.textPaliIlluminazione='';
+    this.textPortaliSegnaletici='';
+    this.textBarriereAntirumore='';
+    this.textAltro='';
+    this.kmFine='';
+    this.radioGroup='';
+    this.classeAttenuatore='';
+    this.classeChiuso='';
     this.fine = '';                                 // Fine Tratto
     this.nomei='';                                  //nome inizio
     this.sequenzai='';                              //numero sequenza
@@ -96,15 +109,28 @@ data.guardrail = {
                 data_inserimento: entity.dateAdded,
                 //sys_user_id: 0,
                 r_qr_code_id: entity.qrCode,
-                numero_nastri_smontaggio: entity.guardrail.guardrailInfo.nastri,
-                numero_pali_smontaggio: entity.guardrail.guardrailInfo.pali,
-                gruppi_terminali_smontaggio: entity.guardrail.guardrailInfo.terminali,
-                tipologia_barriera_smontaggio: entity.guardrail.guardrailInfo.barriera,
-                numero_nastri_montaggio: entity.guardrail.guardrailInfo.Mnastri,
-                numero_pali_montaggio: entity.guardrail.guardrailInfo.Mpali,
-                gruppi_terminali_montaggio: entity.guardrail.guardrailInfo.Mterminali,
-                tipologia_barriera_montaggio: entity.guardrail.guardrailInfo.Mbarriera,
+                classificazione_tipo: entity.guardrail.guardrailInfo.classe,
+                spartitraffico: entity.guardrail.guardrailInfo.spartitraffico,
+                altezza_piano_viabile: entity.guardrail.guardrailInfo.pianoVariabile,
+                tipologia_barriera: entity.guardrail.guardrailInfo.tipologia,
+                fasce_orizzontali: entity.guardrail.guardrailInfo.fasce,
+                sezione_paletto: entity.guardrail.guardrailInfo.sezione,
+                tipologia_paletto: entity.guardrail.guardrailInfo.tipologiaPaletto,
+                interasse_paletto: entity.guardrail.guardrailInfo.interasse,
+                ancoraggio: entity.guardrail.guardrailInfo.ancoraggio,
+                classe_cuspide:entity.guardrail.guardrailInfo.classeElemento,
+                alberi:entity.guardrail.guardrailInfo.textAlberi,
+                pali:entity.guardrail.guardrailInfo.textPali,
+                pali_illuminazione:entity.guardrail.guardrailInfo.textPaliIlluminazione,
+                portali_segnaletici:entity.guardrail.guardrailInfo.textPortaliSegnaletici,
+                barriere_antirumore:entity.guardrail.guardrailInfo.textBarriereAntirumore,
+                altro:entity.guardrail.guardrailInfo.textAltro,
+                varchi:entity.guardrail.guardrailInfo.radioGroup,
+                classe_varchi:entity.guardrail.guardrailInfo.classeChiuso,
+                classe_attenuatori:entity.guardrail.guardrailInfo.classeAttenuatore,
                 parent: entity.guardrail.guardrailInfo.parent,
+                km_inizio:entity.guardrail.guardrailInfo.kmInizio,
+                km_fine:entity.guardrail.guardrailInfo.kmFine,
                 fine: entity.guardrail.guardrailInfo.fine,
                 sequenza: entity.guardrail.guardrailInfo.sequenzai,
                 nome_inizio: entity.guardrail.guardrailInfo.nomei,
@@ -115,11 +141,17 @@ data.guardrail = {
                 front: entity.pictures['front'],
                 back: entity.pictures['back'],
                 perspective: entity.pictures['perspective'],
-                fotogr: entity.pictures['fotogr']
+                foto1: entity.pictures['foto1'],
+                foto2: entity.pictures['foto2'],
+                foto3: entity.pictures['foto3'],
+                foto4: entity.pictures['foto4'],
+                foto5: entity.pictures['foto5'],
+                foto6: entity.pictures['foto6'],
+                foto7: entity.pictures['foto7']
             }
             
         };
-        //console.log("OGGETTO GUARDRAIL",obj);
+        console.log("OGGETTO GUARDRAIL",obj);
         return obj;
     },
     
@@ -148,24 +180,87 @@ data.guardrail = {
         });
     },
 
-    getGuardrailBarriere: function() {
+    getGuardrailClasse: function() {
         return [
-            {name: 'N2BL'},
-            {name: 'H1BL'},
-            {name: 'H1ST'},
-            {name: 'H2BL'},
-            {name: 'H2ST'},
-            {name: 'H2BP'},
-            {name: 'H3BL'},
-            {name: 'H3ST'},
-            {name: 'H3BP'},
-            {name: 'H4BL'},
-            {name: 'H4BP'},
-            {name: 'Barriera Fono Assorbente'},
+            {name: 'N1'},
+            {name: 'N2'},
+            {name: 'H1'},
+            {name: 'H2'},
+            {name: 'H3'},
+            {name: 'H4'},
+            {name: 'Non Classificabile'},
             {name: 'Altro'}
         ];
     },
 
+    getGuardrailSpartitraffico: function() {
+        return [
+            {name: 'Centrale'},
+            {name: 'Laterale rilevato'},
+            {name: 'Bordo ponte su opera d\'\'arte'},
+        ];
+    },
+    
+        getGuardrailTipologia: function() {
+        return [
+            {name: 'Metallica (alluminio,acciaio)'},
+            {name: 'Misto (legno-metallo)'},
+            {name: 'New Jersy'},
+            {name: 'Altro'},
+            ];
+    },
+    
+    getGuardrailFasce: function() {
+        return [
+            {name: 'A doppia onda'},
+            {name: 'A tripla onda'},
+            {name: 'Scatolare'},
+            ];
+    },
+    
+    getGuardrailTipologiaPaletto: function() {
+        return [
+            {name: 'Scatolare'},
+            {name: 'Sez. a C'},
+            {name: 'IPE o doppia C'},
+            ];
+    },
+    
+    getGuardrailAncoraggio: function() {
+        return [
+            {name: 'Al terreno'},
+            {name: 'Con piatra o imbullonati'},
+            {name: 'Affogato nel cls'},
+            ];
+    },
+    
+    getGuardrailClasseElemento: function() {
+        return [
+            {name: 'P1'},
+            {name: 'P2'},
+            {name: 'P3'},
+            {name: 'Altro'},
+            ];
+    },
+    
+    getGuardrailClasseChiuso: function() {
+        return [
+            {name: 'H2 (B1)'},
+            {name: 'H3 (B2)'},
+            {name: 'H4 (B3)'},
+            {name: 'Non classificabile'},
+            ];
+    },
+    
+    getGuardrailClasseAttenuatore: function() {
+        return [
+            {name: '100'},
+            {name: '80'},
+            {name: '50'},
+            {name: 'Non classificabile'},
+            ];
+    },
+    
     getNomi: function () {
       this.returnSQLArray('select * from census ', this.processPersonsResponse); 
     },

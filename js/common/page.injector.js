@@ -269,8 +269,131 @@ var page = {
                     '<input type="radio"  name="radio-choice-2" class="guardrail-mark" id="radio-choice-22" value="0"  /> <label for="radio-choice-22">No</label>'+
                     //---
                     '<div class="InizioSi">'+
-                    '<label>Etichetta inizio tratto</label>'+
-                    '<input type="text" id="nameIni" placeholder="Nome tratto" required/>  </div>'+
+                    '<label>Etichetta inizio tratta</label>'+
+                    '<input type="text" id="nameIni" placeholder="Nome tratta" required/>'+
+                    '<label>Prog. km inizio tratta</label>'+
+                    '<input type="text" id="kmInizio" placeholder="inserire nel senso crescente" required/>'+
+                    '<legend>Cuspide o terminale barriera stradale</legend>'+
+                    '<div data-role="collapsible-set" data-collapsed="true">'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Continuità strutturale con elemento precendente</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto1" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto1" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto1" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>'+
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Elemento terminale standard (manine)</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto2" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto2" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto2" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>' +
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Elemento terminale non standard</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto3" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto3" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto3" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>' +
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Variazione altimetrica nastro (ricurvo verso il basso)</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto4" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto4" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto4" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>' +
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Variazione planimetrica nastro (ricurvo posteriormente)</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto5" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto5" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto5" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>' +
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Elemento terminale speciale</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<label for="classeElemento">Classe Elemento</label>'+
+                                '<select id="classeElemento" data-theme="b"></select>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto6" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto6" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto6" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>' +
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+ //fine collapse
+                    '</div>'+//fine collapse globale
+                    '<legend>Presenza di ostacoli non cedevoli a tergo della carreggiata</legend>'+
+                    '<input type="checkbox" id="alberi"/> <label for="alberi"> Alberi </label> '+
+                    '<div id="textAlberi" class="textAlberi"><input type="text" id="nAlberi" placeholder="n°"/></div>'+
+                    '<input type="checkbox" id="pali"/> <label for="pali"> Pali</label> '+
+                    '<div id="textPali" class="textPali"><input type="text" id="nPali" placeholder="n°"/></div>'+
+                    '<input type="checkbox" id="paliIlluminazione"/> <label for="paliIlluminazione"> Pali illuminazione</label> '+
+                    '<div id="textPaliIlluminazione" class="textPaliIlluminazione"><input type="text" id="nPaliIlluminazione" placeholder="n°"/></div>'+
+                    '<input type="checkbox" id="portaliSegnaletici"/> <label for="portaliSegnaletici"> Portali segnaletici</label>'+
+                    '<div id="textPortaliSegnaletici" class="textPortaliSegnaletici"><input type="text" id="nPortaliSegnaletici" placeholder="n°"/></div>'+
+                    '<input type="checkbox" id="barriereAntirumore"/> <label for="barriereAntirumore"> Barriere antirumore</label> '+
+                    '<div id="textBarriereAntirumore" class="textBarriereAntirumore"><input type="text" id="nBarriereAntirumore" placeholder="n°"/></div>'+
+                    '<input type="checkbox" id="altro"/> <label for="altro"> Altro</label>'+
+                    '<div id="textAltro" class="textAltro"><input type="text" id="nAltro" placeholder="n°"/></div>'+
+                    '<legend>Presenza di by-pass o apertura varchi (principalmente di tipo A e B)</legend>'+
+                    '<input type="radio" name="radioGroup" class="guardrail-mark3" id="aperto" value="1" /> <label for="aperto">Aperto</label>'+
+                    '<input type="radio" name="radioGroup" class="guardrail-mark3" id="chiuso" value="0" /> <label for="chiuso">Chiuso con dispositivo di protezione mobile</label>'+
+                    '<div class="chiuso">'+
+                        '<label for="classeChiuso">Classe</label>'+
+                        '<select id="classeChiuso" data-theme="b"></select>'+
+                    '</div>'+
+                    '<input type="radio" name="radioGroup" class="guardrail-mark3" id="attenuatore" value="2" /> <label for="attenuatore">Presenza di attenuatori d urto di testata</label>'+
+                    '<div class="attenuatore">'+
+                        '<label for="classeAttenuatore">Classe</label>'+
+                        '<select id="classeAttenuatore" data-theme="b"></select>'+
+                    '</div>'+
+                    '</div>'+//fine div inizio SI 
                     '<div class="InizioNo">'+
                     '<label>Sequenza</label>'+
                     '<input type="number" id="SeqIni" placeholder="numero sequenza"/>'+
@@ -291,14 +414,17 @@ var page = {
                     '<legend>Fine tratto:</legend>'+
                     '<input type="radio" name="radio-choice-21" class="guardrail-mark2" id="radio-choice-211" value="1" /> <label for="radio-choice-211">Si</label>'+
                     '<input type="radio" name="radio-choice-21" class="guardrail-mark2" id="radio-choice-221" value="0" /> <label for="radio-choice-221">No</label>'+
-                    '<div class="FineSi"> <h4>Foto Finale</h4> '+
+                    '<div class="FineSi">'+
+                    '<label>Prog. km fine tratta</label>'+
+                    '<input type="text" id="kmFine" placeholder="inserire nel senso crescente" required/>'+
+                    '<h4>Foto Finale</h4> '+
                     //'<input type="hidden" id="chiuso" value="1"/>'+
                         '<div style="text-align:center;">' +
-                            '<a href="#" data-viewtype="fotogr" data-showview style="display:none;">' +
+                            '<a href="#" data-viewtype="foto7" data-showview style="display:none;">' +
                                 '<img src="" style="width:100%" />' +
                             '</a>' +
-                            '<a href="#" data-viewtype="fotogr" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
-                            '<a href="#" data-viewtype="fotogr" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                            '<a href="#" data-viewtype="foto7" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                            '<a href="#" data-viewtype="foto7" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
                         '</div>' +
                     '</div>'+
                     '</fieldset>';
@@ -334,8 +460,87 @@ var page = {
                 }
             });
             $('.FineSi').hide();
+            
+            //Radio Grop by-pass
+                $("input[name$='radioGroup']").click(function(){
+                var radio_value =$(this).val();
+                if (radio_value=='0'){
+                    $('.chiuso').show();
+                    $('.attenuatore').hide();
+                                    }
+                if (radio_value=='2'){
+                    $('.attenuatore').show();
+                    $('.chiuso').hide();
+                }
+                if (radio_value=='1'){
+                    $('.chiuso').hide();
+                    $('.attenuatore').hide();
+                }
+            });
+            $('.chiuso').hide();
+            $('.attenuatore').hide();
+            
+           $('#alberi').change(function(){
+                if (this.checked){
+                    $('#textAlberi').fadeIn('slow');
+                }
+                else{
+                    $('#textAlberi').fadeOut('slow');
+                }
+            });
+            $('#textAlberi').hide();
+            
+            $('#pali').change(function(){
+                if (this.checked){
+                    $('#textPali').fadeIn('slow');
+                }
+                else{
+                    $('#textPali').fadeOut('slow');
+                }
+            });
+            $('#textPali').hide();
+            
+            $('#portaliSegnaletici').change(function(){
+                if (this.checked){
+                    $('#textPortaliSegnaletici').fadeIn('slow');
+                }
+                else{
+                    $('#textPortaliSegnaletici').fadeOut('slow');
+                }
+            });
+            $('#textPortaliSegnaletici').hide();
+            
+            $('#paliIlluminazione').change(function(){
+                if (this.checked){
+                    $('#textPaliIlluminazione').fadeIn('slow');
+                }
+                else{
+                    $('#textPaliIlluminazione').fadeOut('slow');
+                }
+            });
+            $('#textPaliIlluminazione').hide();
+            
+            $('#barriereAntirumore').change(function(){
+                if (this.checked){
+                    $('#textBarriereAntirumore').fadeIn('slow');
+                }
+                else{
+                    $('#textBarriereAntirumore').fadeOut('slow');
+                }
+            });
+            $('#textBarriereAntirumore').hide();
+            
+            $('#altro').change(function(){
+                if (this.checked){
+                    $('#textAltro').fadeIn('slow');
+                }
+                else{
+                    $('#textAltro').fadeOut('slow');
+                }
+            });
+            $('#textAltro').hide();
         },
-        
+       
         GeoCoordinatesAcquired: function(pos) {
         var town;
         var city;

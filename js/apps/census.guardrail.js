@@ -39,13 +39,68 @@ var app = {
         page.injector.injectPage('#summaryPage', 'summary', {continueLink: '#guardrailStep0Page'});
         page.injector.injectPage('#guardrailStep3Page', 'dinamica', {title: 'Guard Rail', footerText: '4 di 4'});
         
-        var html = '<option>Tipologia</option>';
-        var guardrailBarriera = data.guardrail.getGuardrailBarriere();
-        for(var i in guardrailBarriera) {
-            html += '<option>' + guardrailBarriera[i].name + '</option>';
+        var html = '<option>Classe</option>';
+        var guardrailClasse = data.guardrail.getGuardrailClasse();
+        for(var i in guardrailClasse) {
+            html += '<option>' + guardrailClasse[i].name + '</option>';
         }
-        $('#barriera').html(html);
-        $('#Mbarriera').html(html);
+        $('#classe').html(html);
+        
+        var html = '<option>Posizione</option>';
+        var guardrailSpartitraffico = data.guardrail.getGuardrailSpartitraffico();
+        for(var i in guardrailSpartitraffico) {
+            html += '<option>' + guardrailSpartitraffico[i].name + '</option>';
+        }
+        $('#spartitraffico').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailTipologia = data.guardrail.getGuardrailTipologia();
+        for(var i in guardrailTipologia) {
+            html += '<option>' + guardrailTipologia[i].name + '</option>';
+        }
+        $('#tipologia').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailFasce = data.guardrail.getGuardrailFasce();
+        for(var i in guardrailFasce) {
+            html += '<option>' + guardrailFasce[i].name + '</option>';
+        }
+        $('#fasce').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailTipologiaPaletto = data.guardrail.getGuardrailTipologiaPaletto();
+        for(var i in guardrailTipologiaPaletto) {
+            html += '<option>' + guardrailTipologiaPaletto[i].name + '</option>';
+        }
+        $('#tipologiaPaletto').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailAncoraggio = data.guardrail.getGuardrailAncoraggio();
+        for(var i in guardrailAncoraggio) {
+            html += '<option>' + guardrailAncoraggio[i].name + '</option>';
+        }
+        $('#ancoraggio').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailClasseElemento = data.guardrail.getGuardrailClasseElemento();
+        for(var i in guardrailClasseElemento) {
+            html += '<option>' + guardrailClasseElemento[i].name + '</option>';
+        }
+        $('#classeElemento').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailClasseChiuso = data.guardrail.getGuardrailClasseChiuso();
+        for(var i in guardrailClasseChiuso) {
+            html += '<option>' + guardrailClasseChiuso[i].name + '</option>';
+        }
+        $('#classeChiuso').html(html);
+        
+        var html = '<option>Tipo</option>';
+        var guardrailClasseAttenuatore = data.guardrail.getGuardrailClasseAttenuatore();
+        for(var i in guardrailClasseAttenuatore) {
+            html += '<option>' + guardrailClasseAttenuatore[i].name + '</option>';
+        }
+        $('#classeAttenuatore').html(html);
         
         this.bindEvents();        
     },
@@ -253,29 +308,51 @@ var app = {
                 app.census.pictures[k] = imageSrc.substr(23);
             }
         }
-        var imageGr=['fotogr'];
+        
+        var imageKeysGr = ['foto1', 'foto2', 'foto3','foto4','foto5','foto6','foto7'];
+        for(var i in imageKeysGr) {
+            var k = imageKeysGr[i];
+            var imageSrcGr = $('#guardrailStep3Page a[data-viewtype="' + k + '"][data-showview] img').attr('src');
+            if(imageSrcGr != '') {
+                // Remove this from src attribute:
+                // data:image/jpeg;base64,
+                app.census.pictures[k] = imageSrcGr.substr(23);
+            }
+        }
+        /*var imageGr=['fotogr'];
         var imageSrcGr=$('#guardrailStep3Page a[data-viewtype=fotogr][data-showview] img').attr('src');
         if(imageSrcGr != '') {
                 // Remove this from src attribute:
                 // data:image/jpeg;base64,
                 app.census.pictures['fotogr'] = imageSrcGr.substr(23);
             }
-        
+        */
         // informazioni guardrail
         var guardrailInfo = new guardrail.guardrailInfo();
-        guardrailInfo.nastri = $('#nastri').val();                                    // Numero nastri Smontaggio
-        guardrailInfo.pali = $('#pali').val();                                       // numero pali Smontaggio
-        guardrailInfo.terminali = $('#terminali').val();                       // gruppi terminali Smontaggio
-        guardrailInfo.barriera = $('#barriera').val();                               // tipologie barriere Smontaggio
-        guardrailInfo.Mnastri = $('#Mnastri').val();                                 // Numero nastri Montaggio
-        guardrailInfo.Mpali = $('#Mpali').val();                                     // numero pali Montaggio
-        guardrailInfo.Mterminali = $('#Mterminali').val();                           // gruppi terminali Mntaggio
-        guardrailInfo.Mbarriera = $('#Mbarriera').val();                              // tipologie barriere Montaggio
-        
+        guardrailInfo.classe = $('#classe').val();                                    
+        guardrailInfo.spartitraffico = $('#spartitraffico').val();                                       
+        guardrailInfo.pianoVariabile = $('#pianoVariabile').val();                       
+        guardrailInfo.tipologia = $('#tipologia').val();                               
+        guardrailInfo.fasce = $('#fasce').val(); 
+        guardrailInfo.tipologiaPaletto = $('#tipologiaPaletto').val();
+        guardrailInfo.sezione = $('#sezione').val();                                     
+        guardrailInfo.interasse = $('#interasse').val();                           
+        guardrailInfo.ancoraggio = $('#ancoraggio').val();                             
+        guardrailInfo.classeElemento = $('#classeElemento').val(); 
         //guardrailInfo.parent = $('input[type="radio"].guardrail-mark:checked').val(); 
         guardrailInfo.parent = $('#nomiInizio').val(); 
-        
+        guardrailInfo.kmInizio = $('#kmInizio').val(); 
+        guardrailInfo.textAlberi=$('#nAlberi').val();
+        guardrailInfo.textPali=$('#nPali').val();
+        guardrailInfo.textPaliIlluminazione=$('#nPaliIlluminazione').val();
+        guardrailInfo.textPortaliSegnaletici=$('nPortaliSegnaletici').val();
+        guardrailInfo.textBarriereAntirumore=$('#nBarriereAntirumore').val();
+        guardrailInfo.textAltro=$('#nAltro').val();
+        guardrailInfo.radioGroup = $('input[type="radio"].guardrail-mark3:checked').val();
+        guardrailInfo.classeChiuso=$('#classeChiuso').val();
+        guardrailInfo.classeAttenuatore=$('#classeAttenuatore').val();
         guardrailInfo.fine = $('input[type="radio"].guardrail-mark2:checked').val();
+        guardrailInfo.kmFine = $('#kmFine').val();
         guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
         guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
         guardrailInfo.chiuso = $('input[type="radio"].guardrail-mark2:checked').val();
@@ -311,6 +388,7 @@ var app = {
         app.removePhoto('front');
         app.removePhoto('back');
         app.removePhoto('perspective');
+    
         var $page = $('#guardrailStep2Page');
         $('input[type="text"]', $page).val('');
         $('input[type="number"]', $page).val('');
@@ -321,6 +399,13 @@ var app = {
         $('input[type="number"]', $page).val('');
         $('input[type="hidden"]', $page).val('');
         $('textarea', $page).val('');
+        app.removePhoto('foto1');
+        app.removePhoto('foto2');
+        app.removePhoto('foto3');
+        app.removePhoto('foto4');
+        app.removePhoto('foto5');
+        app.removePhoto('foto6');
+        app.removePhoto('foto7');
         $('select', $page).val(0);
         $('#saveButton', $page).removeClass('ui-disabled');
         $('#syncNowButton').removeClass('ui-disabled').html('Sincronizza subito');
