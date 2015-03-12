@@ -273,7 +273,7 @@ data.guardrail = {
                     tx.executeSql(str, [], function(tx, rs) { 
                         for(var i=0; i<rs.rows.length; i++) {
                             var row = rs.rows.item(i);
-                            //console.log("ROW",row);
+                            console.log("ROW",row);
                             result[i] = {
                                 //id: row['id'],
                                 qr: row['qr_code'],
@@ -287,7 +287,7 @@ data.guardrail = {
       //console.log ("RESPONSE",response.length);
       $.each(response, function(key, value) {
         var name = value.nomei; //console.log('name',name);
-        var sub = name.indexOf('no'); //console.log('sub',sub);
+        var sub = name.indexOf('nomei'); //console.log('sub',sub);
         var subSTR = name.substring(sub+8,value.nomei.length);
         var finale = subSTR.indexOf('","s'); //console.log ('finale',finale);
         var fine = subSTR.substring(0,finale); //console.log ('fine',fine);
