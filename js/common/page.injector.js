@@ -271,10 +271,25 @@ var page = {
                     '<div class="InizioSi">'+
                     '<label>Etichetta inizio tratta</label>'+
                     '<input type="text" id="nameIni" placeholder="Nome tratta" required/>'+
-                    '<label>Prog. km inizio tratta</label>'+
-                    '<input type="text" id="kmInizio" placeholder="inserire nel senso crescente" required/>'+
+                    //'<label>Prog. km inizio tratta</label>'+
+                    //'<input type="text" id="kmInizio" placeholder="inserire nel senso crescente" required/>'+
                     '<legend>Cuspide o terminale barriera stradale</legend>'+
                     '<div data-role="collapsible-set" data-collapsed="true">'+
+                    '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
+                        '<h1>Foto generale ubicativa</h1>'+
+                        '<ul data-role="listview" data-theme="b">'+
+                            '<li>'+
+                                '<h4>Foto</h4> '+
+                                    '<div style="text-align:center;">' +
+                                        '<a href="#" data-viewtype="foto0" data-showview style="display:none;">' +
+                                            '<img src="" style="width:100%" />' +
+                                        '</a>' +
+                                        '<a href="#" data-viewtype="foto0" data-removeview class="ui-btn ui-icon-delete ui-btn-icon-left" style="display:none;">rimuovi</a>' +
+                                        '<a href="#" data-viewtype="foto0" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
+                                    '</div>'+
+                           '</li>'+
+                        '</ul>'+
+                    '</div>'+
                     '<div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">'+
                         '<h1>Continuità strutturale con elemento precendente</h1>'+
                         '<ul data-role="listview" data-theme="b">'+
@@ -430,7 +445,7 @@ var page = {
                     '</fieldset>';
             content += '</div>'+
             '<div data-role="footer" class="footer"  data-position="fixed" align="center" style="background:none !important; background-color: #f2f2f2 !important;">'+
-            '<div style="line-height:25px; color:#0086cc;">4 di 4</div>'+
+            '<div style="line-height:25px; color:#0086cc;">3 di 3</div>'+
             '<a href="#" id="saveButton" class="button-confirm next-step" data-step="3">SALVA</a>'+
             '</div>';            
             $(selector).html(content).page();

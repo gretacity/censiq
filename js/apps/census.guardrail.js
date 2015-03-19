@@ -34,10 +34,10 @@ var app = {
                                     '<label for="streetNumber">Km / Civico</label>' +
                                     '<input id="streetNumber" placeholder="Km o numero civico" />' +
                                 '</li>';
-        page.injector.injectPage('#guardrailStep0Page', 'localize', {title: 'Guard Rail', footerText: '1 di 4', additionalContent: additionalContent});
-        page.injector.injectPage('#guardrailStep1Page', '3pictures', {title: 'Guard Rail', footerText: '2 di 4'});
+        page.injector.injectPage('#guardrailStep0Page', 'localize', {title: 'Guard Rail', footerText: '1 di 3', additionalContent: additionalContent});
+        //page.injector.injectPage('#guardrailStep1Page', '3pictures', {title: 'Guard Rail', footerText: '2 di 4'});
         page.injector.injectPage('#summaryPage', 'summary', {continueLink: '#guardrailStep0Page'});
-        page.injector.injectPage('#guardrailStep3Page', 'dinamica', {title: 'Guard Rail', footerText: '4 di 4'});
+        page.injector.injectPage('#guardrailStep3Page', 'dinamica', {title: 'Guard Rail', footerText: '3 di 3'});
         
         var html = '<option>Classe</option>';
         var guardrailClasse = data.guardrail.getGuardrailClasse();
@@ -244,8 +244,8 @@ var app = {
         app.validateStep(step, function() {
             // Success: move forward
             if(step == app.STEP_0) {
-                $.mobile.changePage('#guardrailStep1Page');
-            } else if(step == app.STEP_1) {
+                //$.mobile.changePage('#guardrailStep1Page');
+            //} else if(step == app.STEP_1) {
                 $.mobile.changePage('#guardrailStep2Page');
             } else if(step == app.STEP_2) {
                 $.mobile.changePage('#guardrailStep3Page');
@@ -270,8 +270,8 @@ var app = {
         } else if(step == app.STEP_1) {
             $.mobile.changePage('#guardrailStep0Page');
         } else if(step == app.STEP_2) {
-            $.mobile.changePage('#guardrailStep1Page');
-        } else if(step == app.STEP_3) {
+           // $.mobile.changePage('#guardrailStep1Page');
+        //} else if(step == app.STEP_3) {
             $.mobile.changePage('#guardrailStep2Page');
         }
     },
@@ -298,7 +298,7 @@ var app = {
         app.census.guardrail.streetNumber = $('#streetNumber').val();
         
         // Pictures related to the city asset
-        var imageKeys = ['front', 'back', 'perspective'];
+        /* var imageKeys = ['front', 'back', 'perspective'];
         for(var i in imageKeys) {
             var k = imageKeys[i];
             var imageSrc = $('#guardrailStep1Page a[data-viewtype="' + k + '"][data-showview] img').attr('src');
@@ -307,9 +307,9 @@ var app = {
                 // data:image/jpeg;base64,
                 app.census.pictures[k] = imageSrc.substr(23);
             }
-        }
+        }*/
         
-        var imageKeysGr = ['foto1', 'foto2', 'foto3','foto4','foto5','foto6','foto7'];
+        var imageKeysGr = ['foto0','foto1', 'foto2', 'foto3','foto4','foto5','foto6','foto7'];
         for(var i in imageKeysGr) {
             var k = imageKeysGr[i];
             var imageSrcGr = $('#guardrailStep3Page a[data-viewtype="' + k + '"][data-showview] img').attr('src');
@@ -341,7 +341,7 @@ var app = {
         guardrailInfo.classeElemento = $('#classeElemento').val(); 
         //guardrailInfo.parent = $('input[type="radio"].guardrail-mark:checked').val(); 
         guardrailInfo.parent = $('#nomiInizio').val(); 
-        guardrailInfo.kmInizio = $('#kmInizio').val(); 
+        //guardrailInfo.kmInizio = $('#kmInizio').val(); 
         guardrailInfo.textAlberi=$('#nAlberi').val();
         guardrailInfo.textPali=$('#nPali').val();
         guardrailInfo.textPaliIlluminazione=$('#nPaliIlluminazione').val();
@@ -399,6 +399,7 @@ var app = {
         $('input[type="number"]', $page).val('');
         $('input[type="hidden"]', $page).val('');
         $('textarea', $page).val('');
+        app.removePhoto('foto0');
         app.removePhoto('foto1');
         app.removePhoto('foto2');
         app.removePhoto('foto3');

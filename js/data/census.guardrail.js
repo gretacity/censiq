@@ -13,7 +13,7 @@ guardrail.guardrailInfo = function() {
     this.ancoraggio = '';     
     this.classeElemento='';
     this.parent =''; // Inizio Tratto
-    this.kmInizio='';
+    //this.kmInizio='';
     this.textAlberi='';
     this.textPali='';
     this.textPaliIlluminazione='';
@@ -129,7 +129,6 @@ data.guardrail = {
                 classe_varchi:entity.guardrail.guardrailInfo.classeChiuso,
                 classe_attenuatori:entity.guardrail.guardrailInfo.classeAttenuatore,
                 parent: entity.guardrail.guardrailInfo.parent,
-                civico:entity.guardrail.guardrailInfo.kmInizio,
                 civico_fine:entity.guardrail.guardrailInfo.kmFine,
                 fine: entity.guardrail.guardrailInfo.fine,
                 sequenza: entity.guardrail.guardrailInfo.sequenzai,
@@ -141,6 +140,7 @@ data.guardrail = {
                 front: entity.pictures['front'],
                 back: entity.pictures['back'],
                 perspective: entity.pictures['perspective'],
+                foto0: entity.pictures['foto0'],
                 foto1: entity.pictures['foto1'],
                 foto2: entity.pictures['foto2'],
                 foto3: entity.pictures['foto3'],
