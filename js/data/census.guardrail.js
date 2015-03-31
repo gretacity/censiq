@@ -147,7 +147,7 @@ data.guardrail = {
                 foto4: entity.pictures['foto4'],
                 foto5: entity.pictures['foto5'],
                 foto6: entity.pictures['foto6'],
-                foto7: entity.pictures['foto7']
+                //foto7: entity.pictures['foto7']
             }
             
         };
