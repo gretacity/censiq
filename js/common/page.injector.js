@@ -421,7 +421,7 @@ var page = {
                     /*console.log("NOME INIZIO",NameIniziali);
                     for(var i in NameIniziali) {
                          content += '<option>' + NameIniziali[i].name + '</option>';
-                    }*/
+                    }***/
             //content+='</select>'+
                     //'</div>'+
                 content+='</fieldset>';

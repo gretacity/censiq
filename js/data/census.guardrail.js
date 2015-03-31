@@ -160,10 +160,9 @@ data.guardrail = {
      *  params: {
      *      manufacturers: [{name: '', authNo: ''}],
      *      installers: [{name: ''}],
-     *      owners: [{name: ''}],
+     *      owners: [{name: ''}], *
      *  }
      */
-    
     updateSupportTables: function(params) {
         //console.log("TABLES");
         if(data._db == null) this.open();
