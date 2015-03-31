@@ -114,6 +114,23 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         // Force onDeviceReady if it's a browser
         if(config.EMULATE_ON_BROWSER) this.onDeviceReady();
+        $('#deleteButton').on('click', app.deleteItems);
+        $('#addButton').on('click', function(){
+            $.mobile.changePage('#localizaGuardrail', {
+                transition: 'slide',
+                reverse: false,
+                changeHash: false
+                });
+        });
+        $('#newButton').on('click', function(){
+            $.mobile.changePage('#guardrailStep0Page', {
+                transition: 'slide',
+                reverse: false,
+                changeHash: false
+                });
+        });//cambia pagina su #guardrailStep0Page
+        $('#modifyButton').on('click', app.modifyItems);
+        
         $('.prev-step').on('click', this.previousStep);
         $('.next-step').on('click', this.stepCompleted);
         // Step 0
@@ -160,6 +177,48 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+    
+        
+        // For Android devices
+        
+        $logPanel = $('#log');
+        $logPanel.html('Recupero elementi da visualizzare...');
+        //console.log("DATA FETCH",this);
+        data.fetch({status: [data.REC_STATUS_ADDED, data.REC_STATUS_SYNCH_ERROR]}, function(result) {
+            //console.log("RESULT SYNC FETCH",result);
+            var itemCount = result.rows.length;
+            var html = '';
+            for(var i = 0; i < itemCount; i++) {
+                //console.log('itemcout',itemCount);
+                var row = result.rows.item(i);
+                //var obj = data.cityAsset.deserialize(row);
+                //console.log("OGGETTO Synch ",row); //row ha latitudine e longitudine
+                //console.log("TIPO=",row.entity_type);
+                if(row.entity_type==3){
+                var obj = data.deserialize(row, row.entity_type);
+                var itemId = 'item' + obj.id;
+                var name = data.shortDescription(obj);
+                var qrCode = obj.qrCode;
+                var dateAdded = Date.parseFromYMDHMS(row.date_added).toDMYHMS();
+                html += '<li style="padding:0;' + (false ? 'background-color:#f00;' : '') + '">' + 
+                        '<input type="checkbox" id="' + itemId + '" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail()" />' + 
+                        '<label for="' + itemId +'">' + CensusTypeNames[obj.entityType];
+                if(name != '') {
+                    html += '<br />' + name;
+                }
+                html += '<br /> codice ' + qrCode +
+                        '<br /> aggiunto il ' + dateAdded + '</label>' +
+                        '</li>';
+            }}
+        
+            $('#itemList').html(html);
+            $('#itemList').listview("refresh");
+            $('#elencoGuardrailPage').trigger('create');
+            app.countItemToGuardrail();
+ 
+        });
+        
+        
         $('#qrCode').val(config.QR_CODE_TEST);
         // For Android devices
         document.addEventListener("backbutton", function(e) {
@@ -277,7 +336,27 @@ var app = {
     },
     
    
-    
+        countItemToGuardrail: function() {
+        var connectionAvailable = helper.isOnline();
+        var allItems = $('#itemList li').length;
+        var itemToGuardrail = $('#itemList li input[type="checkbox"]:checked').length;
+        $logPanel = $('#log');
+        $logPanel.html((allItems == 0) ? 'Non ci sono elementi.'
+                                       : itemToGuardrail + ' ' + ' di ' + allItems + ' elementi ');
+        if(itemToGuardrail > 0) {
+            //$('#syncButton').removeClass('ui-disabled');
+            //$('#deleteButton').show();
+            //$('#addButton').show();
+            $('#deleteButton').removeClass('ui-disabled');
+            $('#addButton').removeClass('ui-disabled');
+        } else {
+            //$('#syncButton').addClass('ui-disabled');
+            //$('#deleteButton').hide();
+            //$('#addButton').hide();
+            $('#deleteButton').addClass('ui-disabled');
+            $('#addButton').addClass('ui-disabled');
+        }
+    },
     save: function() {
         var supportTableData = {grcen: []};
         // Form is valid, proceed with saving.

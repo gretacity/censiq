@@ -264,10 +264,11 @@ var page = {
                             '<div data-role="main" class="ui-content">';
             
             content += '<fieldset data-role="controlgroup1">'+
-                    '<legend>Inizio tratto:</legend>'+
+                    /* '<legend>Inizio tratto:</legend>'+
                     '<input type="radio" name="radio-choice-2" class="guardrail-mark" id="radio-choice-21" value="1" /> <label for="radio-choice-21">Si</label>'+
                     '<input type="radio"  name="radio-choice-2" class="guardrail-mark" id="radio-choice-22" value="0"  /> <label for="radio-choice-22">No</label>'+
-                    //---
+                    //--- 
+            */
                     '<div class="InizioSi">'+
                     '<label>Etichetta inizio tratta</label>'+
                     '<input type="text" id="nameIni" placeholder="Nome tratta" required/>'+
@@ -408,8 +409,8 @@ var page = {
                         '<label for="classeAttenuatore">Classe</label>'+
                         '<select id="classeAttenuatore" data-theme="b"></select>'+
                     '</div>'+
-                    '</div>'+//fine div inizio SI 
-                    '<div class="InizioNo">'+
+                    '</div>';//fine div inizio SI 
+                    /*'<div class="InizioNo">'+
                     '<label>Sequenza</label>'+
                     '<input type="number" id="SeqIni" placeholder="numero sequenza"/>'+
                     '<label>Scegli Guardrail</label>'+
@@ -421,10 +422,10 @@ var page = {
                     for(var i in NameIniziali) {
                          content += '<option>' + NameIniziali[i].name + '</option>';
                     }*/
-            content+='</select>'+
-                    '</div>'+
-                    '</fieldset>'+
-                    '<fieldset data-role="controlgroup2">'+
+            //content+='</select>'+
+                    //'</div>'+
+                content+='</fieldset>';
+                    /*'<fieldset data-role="controlgroup2">'+
                     //---
                     '<legend>Fine tratto:</legend>'+
                     '<input type="radio" name="radio-choice-21" class="guardrail-mark2" id="radio-choice-211" value="1" /> <label for="radio-choice-211">Si</label>'+
@@ -442,7 +443,7 @@ var page = {
                             '<a href="#" data-viewtype="foto7" data-addview class="ui-btn ui-icon-camera ui-btn-icon-left">acquisisci</a>' +
                         '</div>' +
                     '</div>'+
-                    '</fieldset>';
+                    '</fieldset>';*/
             content += '</div>'+
             '<div data-role="footer" class="footer"  data-position="fixed" align="center" style="background:none !important; background-color: #f2f2f2 !important;">'+
             '<div style="line-height:25px; color:#0086cc;">3 di 3</div>'+
@@ -450,7 +451,7 @@ var page = {
             '</div>';            
             $(selector).html(content).page();
             //inizio
-            $("input[name$='radio-choice-2']").click(function(){
+            /*$("input[name$='radio-choice-2']").click(function(){
                 var radio_value =$(this).val();
                 if (radio_value=='1'){
                     $('.InizioSi').show();
@@ -475,7 +476,7 @@ var page = {
                 }
             });
             $('.FineSi').hide();
-            
+            */
             //Radio Grop by-pass
                 $("input[name$='radioGroup']").click(function(){
                 var radio_value =$(this).val();
