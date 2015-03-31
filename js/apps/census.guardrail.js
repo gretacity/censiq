@@ -116,11 +116,34 @@ var app = {
         if(config.EMULATE_ON_BROWSER) this.onDeviceReady();
         $('#deleteButton').on('click', app.deleteItems);
         $('#addButton').on('click', function(){
-            $.mobile.changePage('#localizaGuardrail', {
+            $('#itemList li input[type="checkbox"]:checked').each(function() {
+                var itemId = $(this).attr("data-id");
+                var liElem = $(this).parents('li');
+                console.log(itemId);
+                //data.delete(itemId, function() {
+                   // liElem.remove();
+                //});
+            });
+            $.mobile.changePage('#localizeGuardrailPage', {
                 transition: 'slide',
                 reverse: false,
                 changeHash: false
                 });
+        });
+        $pageAdd = $('#localizeGuardrailPage');
+        $('#acquireQrCodeButton', $pageAdd).on('click', this.acquireQrCode);
+        $('#getCoordinatesPanel', $pageAdd).on('click', this.acquireGeoCoordinates);
+        $('#openMapPageButton', $pageAdd).on('click', function() {
+            //helper.maximizeContent();
+            setTimeout(function() {
+                var success = app.openMap();
+                if(!success) return;
+                $.mobile.changePage('#mapPage', {
+                    transition: 'slide',
+                    reverse: false,
+                    changeHash: false
+                });
+            }, 100);
         });
         $('#newButton').on('click', function(){
             $.mobile.changePage('#guardrailStep0Page', {
@@ -128,7 +151,7 @@ var app = {
                 reverse: false,
                 changeHash: false
                 });
-        });//cambia pagina su #guardrailStep0Page
+        });
         $('#modifyButton').on('click', app.modifyItems);
         
         $('.prev-step').on('click', this.previousStep);
@@ -247,7 +270,23 @@ var app = {
         console.log('Received Event: ' + id);
     },
     
-
+    deleteItems: function() {
+        helper.confirm('Eliminare in modo definitivo gli elementi selezionati?', function(buttonIndex) {
+            if(buttonIndex == 1) {
+                //app.lockUI();
+                $('#itemList li input[type="checkbox"]:checked').each(function() {
+                    var itemId = $(this).attr("data-id");
+                    var liElem = $(this).parents('li');
+                    data.delete(itemId, function() {
+                        liElem.remove();
+                    });
+                });
+                //app.unlockUI();
+                setTimeout(app.countItemToGuardrail, 100);
+            }
+        }, 'Conferma eliminazione', ['Si', 'No']);
+    },
+    
     validateStep: function(stepIndex, stepValidCallback, stepNotValidCallback) {
         var errors = [];
         if(stepIndex == app.STEP_0) {
@@ -341,18 +380,20 @@ var app = {
         var allItems = $('#itemList li').length;
         var itemToGuardrail = $('#itemList li input[type="checkbox"]:checked').length;
         $logPanel = $('#log');
-        $logPanel.html((allItems == 0) ? 'Non ci sono elementi.'
+        $logPanel.html((allItems == 0) ? 'Nessun elemento.'
                                        : itemToGuardrail + ' ' + ' di ' + allItems + ' elementi ');
         if(itemToGuardrail > 0) {
             //$('#syncButton').removeClass('ui-disabled');
             //$('#deleteButton').show();
             //$('#addButton').show();
+            $('#modifyButton').removeClass('ui-disabled');
             $('#deleteButton').removeClass('ui-disabled');
             $('#addButton').removeClass('ui-disabled');
         } else {
             //$('#syncButton').addClass('ui-disabled');
             //$('#deleteButton').hide();
             //$('#addButton').hide();
+            $('#modifyButton').addClass('ui-disabled');
             $('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
         }
@@ -388,13 +429,13 @@ var app = {
             }
         }*/
         
-        var imageKeysGr = ['foto0','foto1', 'foto2', 'foto3','foto4','foto5','foto6','foto7'];
+        var imageKeysGr = ['foto0','foto1', 'foto2', 'foto3','foto4','foto5','foto6'];
         for(var i in imageKeysGr) {
             var k = imageKeysGr[i];
             var imageSrcGr = $('#guardrailStep3Page a[data-viewtype="' + k + '"][data-showview] img').attr('src');
             if(imageSrcGr != '') {
                 // Remove this from src attribute:
-                // data:image/jpeg;base64,
+                //data:image/jpeg;base64,
                 app.census.pictures[k] = imageSrcGr.substr(23);
             }
         }
@@ -419,7 +460,7 @@ var app = {
         guardrailInfo.ancoraggio = $('#ancoraggio').val();                             
         guardrailInfo.classeElemento = $('#classeElemento').val(); 
         //guardrailInfo.parent = $('input[type="radio"].guardrail-mark:checked').val(); 
-        guardrailInfo.parent = $('#nomiInizio').val(); 
+        //guardrailInfo.parent = $('#nomiInizio').val(); 
         //guardrailInfo.kmInizio = $('#kmInizio').val(); 
         guardrailInfo.textAlberi=$('#nAlberi').val();
         guardrailInfo.textPali=$('#nPali').val();
@@ -430,11 +471,11 @@ var app = {
         guardrailInfo.radioGroup = $('input[type="radio"].guardrail-mark3:checked').val();
         guardrailInfo.classeChiuso=$('#classeChiuso').val();
         guardrailInfo.classeAttenuatore=$('#classeAttenuatore').val();
-        guardrailInfo.fine = $('input[type="radio"].guardrail-mark2:checked').val();
-        guardrailInfo.kmFine = $('#kmFine').val();
-        guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
-        guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
-        guardrailInfo.chiuso = $('input[type="radio"].guardrail-mark2:checked').val();
+        //guardrailInfo.fine = $('input[type="radio"].guardrail-mark2:checked').val();
+        //guardrailInfo.kmFine = $('#kmFine').val();
+        //guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
+        //guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
+        //guardrailInfo.chiuso = $('input[type="radio"].guardrail-mark2:checked').val();
 
         //guardrailInfo.  = $('#nomeInizio').val();                              // nome inizio associato
         app.census.guardrail.guardrailInfo = guardrailInfo;
@@ -485,7 +526,6 @@ var app = {
         app.removePhoto('foto4');
         app.removePhoto('foto5');
         app.removePhoto('foto6');
-        app.removePhoto('foto7');
         $('select', $page).val(0);
         $('#saveButton', $page).removeClass('ui-disabled');
         $('#syncNowButton').removeClass('ui-disabled').html('Sincronizza subito');
