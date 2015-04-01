@@ -243,6 +243,7 @@ var app = {
         
         
         $('#qrCode').val(config.QR_CODE_TEST);
+        $('#qrCode1').val(config.QR_CODE_TEST);
         // For Android devices
         document.addEventListener("backbutton", function(e) {
             e.preventDefault();
@@ -407,6 +408,7 @@ var app = {
         // Update the Census entity...
         app.census.dateAdded = new Date();
         app.census.qrCode = $('#qrCode').val();
+        app.census.qrCode = $('#qrCode1').val();
         //app.census.position.latitude = '';    // Already set
         //app.census.position.longitude = '';   // Already set
         //app.census.position.accuracy = '';    // Already set
@@ -485,7 +487,7 @@ var app = {
       /*
         var guardInfo = new guardrail.guardInfo();
         
-        console.log("GUARD APPS",guardInfo);
+r        console.log("GUARD APPS",guardInfo);
         
         app.census.guardrail.guards.push(guardInfo);
         // ...and save it
@@ -528,7 +530,7 @@ var app = {
         app.removePhoto('foto6');
         $('select', $page).val(0);
         $('#saveButton', $page).removeClass('ui-disabled');
-        $('#syncNowButton').removeClass('ui-disabled').html('Sincronizza subito');
+        //$('#syncNowButton').removeClass('ui-disabled').html('Sincronizza subito');
         
         // Speed up development/testing
         $('#qrCode').val(config.QR_CODE_TEST);
