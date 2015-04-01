@@ -11,6 +11,16 @@ app.acquireQrCode = function() {
             helper.alert("Errore durante la scansione: " + error);
     });
 }
+app.acquireQrCodePoint = function() {
+    app.acquireGeoCoordinates();
+    barcodeReader.acquireQrCode(
+        function(code) {
+            $('#qrCode_point').val(code);
+        }, 
+        function(error) {
+            helper.alert("Errore durante la scansione: " + error);
+    });
+}
 /***************************************************************
  *  Functions related to geographical location
  */

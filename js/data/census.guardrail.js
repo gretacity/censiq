@@ -75,7 +75,10 @@ data.guardrail = {
         census.dateAdded = row.date_added;
         census.status = row.status;
         census.entityType = row.entity_type;
-        census.qrCode = row.qr_code;
+        if(row.qr_code!=''){
+        census.qrCode = row.qr_code;}
+    else{
+        census.qrCode= row.qr_code_point;}
         census.position.latitude = row.lat;
         census.position.longitude = row.lng;
         census.position.accuracy = row.accuracy;

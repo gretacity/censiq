@@ -23,7 +23,7 @@
             <div data-role="header" class="header" data-position="fixed">
                 <a href="index.html" data-transition="slide" data-direction="reverse" id="homeButton" rel="external" class="ui-btn ui-btn-icon-left ui-btn-icon-notext ui-icon-toolbar-button toolbar-button-home ui-alt-icon ui-nodisc-icon">Home</a>
 				<h1>Guardrail</h1>
-                <img id="modifyButton" src="img/close.png" class="ui-btn-right ui-btn-icon-notext ui-alt-icon ui-nodisc-icon" style=" top: 4.5em; left:0.5em; height: 2.6em;width: 2.6em">
+                <img id="closeButton" src="img/close.png" class="ui-btn-right ui-btn-icon-notext ui-alt-icon ui-nodisc-icon" style=" top: 4.5em; left:0.5em; height: 2.6em;width: 2.6em">
                 <img id="addButton" src="img/addpoint.png" class="ui-btn-right ui-btn-icon-notext ui-alt-icon ui-nodisc-icon" style="top: 4.5em; height: 2.6em;width: 2.6em">
                 <img id="newButton" src="img/add_car.png" class="ui-btn-right ui-btn-icon-notext ui-alt-icon ui-nodisc-icon" style="top: 4.5em; height: 2.6em;width: 2.6em; right: 3em;">
                 <img id="deleteButton" src="img/delete.png" class="ui-btn-right ui-btn-icon-notext ui-alt-icon ui-nodisc-icon" style="height: 2.6em;width: 2.6em">
@@ -57,18 +57,23 @@
             </div>
             <div data-role="main" class="ui-content">
                 <ul data-role="listview" data-inset="false" data-theme="b">
+                    <li>
+                        <label for="parent">Qr Code Inizio </label>
+                        <input type="text" id="parent" readonly="readonly"/>
+                    </li>
                     <li data-role="list-divider">
                         <div>
-                        <img src="img/identificazione.png" class="ui-li-icon" style="width:2.5em; float:left;">
-                        <h2 style="margin: .65em 0 !important; float:left;"> Identificazione</h2></div>
+                            <img src="img/identificazione.png" class="ui-li-icon" style="width:2.5em; float:left;">
+                            <h2 style="margin: .65em 0 !important; float:left;"> Identificazione</h2>
+                        </div>
                     </li>
                     <li data-icon="camera">
-                        <a href="#" id="acquireQrCodeButton">
+                        <a href="#" id="acquireQrCodePointButton">
                             <label>Aquisisci da fotocamera</label>
                         </a>
                     </li>
                     <li data-theme="b">
-                        <input type="text" id="qrCode1" placeholder="QR code" />
+                        <input type="text" id="qrCode_point" placeholder="QR code punto" />
                     </li>
                 </ul>
                 <ul data-role="listview" data-inset="false" data-theme="b">

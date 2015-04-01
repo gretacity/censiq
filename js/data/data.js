@@ -599,7 +599,15 @@ var data = {
        
     },
     
-    
+    close: function(entityId) {
+        console.log("DATA -> CLOSE");
+        if(data._db == null) data.open();
+        data._db.transaction(function(tx) {
+            var newStatus = 1;
+            tx.executeSql("update from census set chiuso = ? where id = ?",
+                        [newStatus, entityId]);
+        });
+    },
     
     updateStatus: function(entityId, newStatus, errorMessage) {
         if(data._db == null) data.open();

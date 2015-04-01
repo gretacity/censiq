@@ -114,15 +114,18 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         // Force onDeviceReady if it's a browser
         if(config.EMULATE_ON_BROWSER) this.onDeviceReady();
-        $('#deleteButton').on('click', app.deleteItems);
-        $('#addButton').on('click', function(){
+        $('#closeButton').on('click', function(){
             $('#itemList li input[type="checkbox"]:checked').each(function() {
                 var itemId = $(this).attr("data-id");
                 var liElem = $(this).parents('li');
-                console.log(itemId);
-                //data.delete(itemId, function() {
-                   // liElem.remove();
-                //});
+                data.close(itemId);
+            });
+        });
+        $('#deleteButton').on('click', app.deleteItems);
+        $('#addButton').on('click', function(){
+            $('#itemList li input[type="checkbox"]:checked').each(function() {
+                var qrCode = $(this).attr("data-qrCode");
+                 $('#parent','#localizeGuardrailPage').val(qrCode);
             });
             $.mobile.changePage('#localizeGuardrailPage', {
                 transition: 'slide',
@@ -131,7 +134,7 @@ var app = {
                 });
         });
         $pageAdd = $('#localizeGuardrailPage');
-        $('#acquireQrCodeButton', $pageAdd).on('click', this.acquireQrCode);
+        $('#acquireQrCodePointButton', $pageAdd).on('click', this.acquireQrCodePoint);
         $('#getCoordinatesPanel', $pageAdd).on('click', this.acquireGeoCoordinates);
         $('#openMapPageButton', $pageAdd).on('click', function() {
             //helper.maximizeContent();
@@ -152,7 +155,7 @@ var app = {
                 changeHash: false
                 });
         });
-        $('#modifyButton').on('click', app.modifyItems);
+        $('#closeButton').on('click', app.modifyItems);
         
         $('.prev-step').on('click', this.previousStep);
         $('.next-step').on('click', this.stepCompleted);
@@ -224,7 +227,7 @@ var app = {
                 var qrCode = obj.qrCode;
                 var dateAdded = Date.parseFromYMDHMS(row.date_added).toDMYHMS();
                 html += '<li style="padding:0;' + (false ? 'background-color:#f00;' : '') + '">' + 
-                        '<input type="checkbox" id="' + itemId + '" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail()" />' + 
+                        '<input type="checkbox" id="' + itemId + '" data-qrCode="'+obj.qrCode+'" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail()" />' + 
                         '<label for="' + itemId +'">' + CensusTypeNames[obj.entityType];
                 if(name != '') {
                     html += '<br />' + name;
@@ -243,7 +246,7 @@ var app = {
         
         
         $('#qrCode').val(config.QR_CODE_TEST);
-        $('#qrCode1').val(config.QR_CODE_TEST);
+        $('#qrCode_point').val(config.QR_CODE_TEST);
         // For Android devices
         document.addEventListener("backbutton", function(e) {
             e.preventDefault();
@@ -387,14 +390,14 @@ var app = {
             //$('#syncButton').removeClass('ui-disabled');
             //$('#deleteButton').show();
             //$('#addButton').show();
-            $('#modifyButton').removeClass('ui-disabled');
+            $('#closeButton').removeClass('ui-disabled');
             $('#deleteButton').removeClass('ui-disabled');
             $('#addButton').removeClass('ui-disabled');
         } else {
             //$('#syncButton').addClass('ui-disabled');
             //$('#deleteButton').hide();
             //$('#addButton').hide();
-            $('#modifyButton').addClass('ui-disabled');
+            $('#closeButton').addClass('ui-disabled');
             $('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
         }
@@ -407,8 +410,10 @@ var app = {
         
         // Update the Census entity...
         app.census.dateAdded = new Date();
+        
         app.census.qrCode = $('#qrCode').val();
-        app.census.qrCode = $('#qrCode1').val();
+        if(app.census.qrCode==''){
+        app.census.qrCode = $('#qrCode_point').val();}
         //app.census.position.latitude = '';    // Already set
         //app.census.position.longitude = '';   // Already set
         //app.census.position.accuracy = '';    // Already set
@@ -463,7 +468,8 @@ var app = {
         guardrailInfo.classeElemento = $('#classeElemento').val(); 
         //guardrailInfo.parent = $('input[type="radio"].guardrail-mark:checked').val(); 
         //guardrailInfo.parent = $('#nomiInizio').val(); 
-        //guardrailInfo.kmInizio = $('#kmInizio').val(); 
+        //guardrailInfo.kmInizio = $('#kmInizio').val();
+        guardrailInfo.parent = $('#parent').val();
         guardrailInfo.textAlberi=$('#nAlberi').val();
         guardrailInfo.textPali=$('#nPali').val();
         guardrailInfo.textPaliIlluminazione=$('#nPaliIlluminazione').val();
@@ -534,7 +540,7 @@ r        console.log("GUARD APPS",guardInfo);
         
         // Speed up development/testing
         $('#qrCode').val(config.QR_CODE_TEST);
-        
+        $('#qrCode_point').val(config.QR_CODE_TEST);
         // Move to the last page of the wizard
         $.mobile.changePage('#summaryPage', {
             transition: 'slide'
