@@ -24,10 +24,12 @@ guardrail.guardrailInfo = function() {
     this.radioGroup='';
     this.classeAttenuatore='';
     this.classeChiuso='';
-    this.fine = '';                                 // Fine Tratto
-    this.nomei='';                                  //nome inizio
-    this.sequenzai='';                              //numero sequenza
+    this.inizio='';
     this.chiuso='';
+    //this.fine = '';                                 // Fine Tratto
+    //this.nomei='';                                  //nome inizio
+    //this.sequenzai='';                              //numero sequenza
+
     //this.nomea='';                                 //nome associato inizio
 };
 /*guardrail.guardInfo = function() {
@@ -75,10 +77,13 @@ data.guardrail = {
         census.dateAdded = row.date_added;
         census.status = row.status;
         census.entityType = row.entity_type;
-        if(row.qr_code!=''){
-        census.qrCode = row.qr_code;}
+        if(row.qr_code!='')
+        {
+            census.qrCode = row.qr_code;
+        }
     else{
-        census.qrCode= row.qr_code_point;}
+            census.qrCode= row.qr_code_point;
+        }
         census.position.latitude = row.lat;
         census.position.longitude = row.lng;
         census.position.accuracy = row.accuracy;
@@ -136,7 +141,8 @@ data.guardrail = {
                 fine: entity.guardrail.guardrailInfo.fine,
                 sequenza: entity.guardrail.guardrailInfo.sequenzai,
                 nome_inizio: entity.guardrail.guardrailInfo.nomei,
-                chiuso: entity.guardrail.guardrailInfo.chiuso
+                inizio:entity.guardrail.guardrailInfo.inizio,
+                chiuso: entity.guardrail.guardrailInfo.chiuso,
             },
             //gr_censimento_info: [],
             pictures: {

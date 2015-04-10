@@ -405,3 +405,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
 .title{
     padding-top: 1.1em !important;
 }
+    
+    
+    .close{
+        background: url("../../img/close.png") no-repeat right;
+	background-size: 2.875em 2.875em;
+    }

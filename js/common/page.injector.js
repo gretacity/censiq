@@ -271,6 +271,7 @@ var page = {
             */
                     '<div class="InizioSi">'+
                     '<label>Etichetta inizio tratta</label>'+
+                    '<input type="hidden" id="inizio" value="1"/>'+
                     '<input type="text" id="nameIni" placeholder="Nome tratta" required/>'+
                     //'<label>Prog. km inizio tratta</label>'+
                     //'<input type="text" id="kmInizio" placeholder="inserire nel senso crescente" required/>'+

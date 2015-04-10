@@ -74,7 +74,61 @@ app.acquireGeoCoordinates = function() {
             $('#geoStatusText').addClass('error').html(errorMessage);
             $('#openMapPanel').hide();
         });
-}
+},
+
+
+app.acquireGeoCoordinatesPoint = function() {
+        
+    var $latLng = $('#latLng');
+    
+    $('#geoStatusText').removeClass('error').html('Recupero coordinate geografiche...');
+    $('#getCoordinatesButtonPoint').addClass('ui-disabled');
+    
+    geoLocation.acquireGeoCoordinates(
+        function(position) {
+            // Update Census object
+            app.census.position.latitude = position.coords.latitude;
+            app.census.position.longitude = position.coords.longitude;
+            app.census.position.accuracy = position.coords.accuracy;
+            app.census.position.altitude = position.coords.altitude;
+            
+            $('#getCoordinatesButtonPoint').removeClass('ui-disabled');
+            $latLng.val(position.coords.latitude + '/' + position.coords.longitude);
+
+            $('#geoStatusTitle').html('Aggiorna');
+            $('#geoStatusText').html('Posizione acquisita<br/>  Longitudine e Latitudine:' + app.census.position.toString()+ '<br/> Altitudine:' +app.census.position.altitude+'m');
+            //console.log('tostring',app.census.position.altitude);
+            if((position.coords.accuracy > config.GEO_OTPS_MINIMUM_ACCURACY_REQUIRED) &&
+               (helper.isOnline())) {
+                // Position is not so accurate
+                page.injector.GeoCoordinatesAcquired(app.census.position);
+                $('#correctPositionPanel').html(
+                        //console.log('coord',);
+                    "Le coordinate geografiche acquisite non sono sufficientemente accurate.<br />"+ 
+                    "E' necessario interventire manualmente correggendo la posizione sulla mappa."
+                );
+                $('#openMapPanel').show();
+            } else {
+                // Position is accurate
+                $('#openMapPanel').hide();
+            }
+        },
+        function(errorMessage, error) {
+            
+            // Update Census object
+            app.census.position.latitude = 0;
+            app.census.position.longitude = 0;
+            app.census.position.accuracy = 0;
+            app.census.position.altitude = 0;
+            
+            $latLng.val('');
+            $('#getCoordinatesButtonPoint').removeClass('ui-disabled');
+            $('#geoStatusTitle').html('Riprova');
+            $('#geoStatusText').addClass('error').html(errorMessage);
+            $('#openMapPanel').hide();
+        });
+},
+
 
 
 

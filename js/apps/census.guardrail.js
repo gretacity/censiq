@@ -114,13 +114,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         // Force onDeviceReady if it's a browser
         if(config.EMULATE_ON_BROWSER) this.onDeviceReady();
-        $('#closeButton').on('click', function(){
-            $('#itemList li input[type="checkbox"]:checked').each(function() {
-                var itemId = $(this).attr("data-id");
-                var liElem = $(this).parents('li');
-                data.close(itemId);
-            });
-        });
+        $('#closeButton').on('click', app.closeItems); 
         $('#deleteButton').on('click', app.deleteItems);
         $('#addButton').on('click', function(){
             $('#itemList li input[type="checkbox"]:checked').each(function() {
@@ -135,8 +129,8 @@ var app = {
         });
         $pageAdd = $('#localizeGuardrailPage');
         $('#acquireQrCodePointButton', $pageAdd).on('click', this.acquireQrCodePoint);
-        $('#getCoordinatesPanel', $pageAdd).on('click', this.acquireGeoCoordinates);
-        $('#openMapPageButton', $pageAdd).on('click', function() {
+        $('#getCoordinatesPanelPoint', $pageAdd).on('click', this.acquireGeoCoordinatesPoint);
+        $('#openMapPageButtonPoint', $pageAdd).on('click', function() {
             //helper.maximizeContent();
             setTimeout(function() {
                 var success = app.openMap();
@@ -155,8 +149,6 @@ var app = {
                 changeHash: false
                 });
         });
-        $('#closeButton').on('click', app.modifyItems);
-        
         $('.prev-step').on('click', this.previousStep);
         $('.next-step').on('click', this.stepCompleted);
         // Step 0
@@ -221,7 +213,9 @@ var app = {
                 //console.log("OGGETTO Synch ",row); //row ha latitudine e longitudine
                 //console.log("TIPO=",row.entity_type);
                 if(row.entity_type==3){
+                    console.log("ROW",row);
                 var obj = data.deserialize(row, row.entity_type);
+                //console.log("OBJ",obj);
                 var itemId = 'item' + obj.id;
                 var name = data.shortDescription(obj);
                 var qrCode = obj.qrCode;
@@ -273,7 +267,16 @@ var app = {
         }
         console.log('Received Event: ' + id);
     },
-    
+    closeItems: function(){
+                $('#itemList li input[type="checkbox"]:checked').each(function() {
+                    console.log($('#itemList li[0]'));
+                    var itemId = $(this).attr("data-id");
+                    console.log("ID",itemId);
+                    var liElem = $(this).parents('li');
+                    data.close(itemId);
+                });
+    },
+
     deleteItems: function() {
         helper.confirm('Eliminare in modo definitivo gli elementi selezionati?', function(buttonIndex) {
             if(buttonIndex == 1) {
@@ -386,20 +389,30 @@ var app = {
         $logPanel = $('#log');
         $logPanel.html((allItems == 0) ? 'Nessun elemento.'
                                        : itemToGuardrail + ' ' + ' di ' + allItems + ' elementi ');
-        if(itemToGuardrail > 0) {
+        if(itemToGuardrail == 1) {
             //$('#syncButton').removeClass('ui-disabled');
             //$('#deleteButton').show();
             //$('#addButton').show();
             $('#closeButton').removeClass('ui-disabled');
             $('#deleteButton').removeClass('ui-disabled');
             $('#addButton').removeClass('ui-disabled');
-        } else {
-            //$('#syncButton').addClass('ui-disabled');
+            $('#newButton').removeClass('ui-disabled');
+        } else if(itemToGuardrail > 1 ) {
+            //$('#synncButton').addClass('ui-disabled');
+            //$('#deleteButton').hide();
+            //$('#addButton').hide();
+            $('#closeButton').addClass('ui-disabled');
+            //$('#deleteButton').addClass('ui-disabled');
+            $('#addButton').addClass('ui-disabled');
+            $('#newButton').addClass('ui-disabled');
+        }else if(itemToGuardrail == 0 ) {
+            //$('#synncButton').addClass('ui-disabled');
             //$('#deleteButton').hide();
             //$('#addButton').hide();
             $('#closeButton').addClass('ui-disabled');
             $('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
+            //$('#newButton').addClass('ui-disabled');
         }
     },
     save: function() {
@@ -412,17 +425,35 @@ var app = {
         app.census.dateAdded = new Date();
         
         app.census.qrCode = $('#qrCode').val();
-        if(app.census.qrCode==''){
-        app.census.qrCode = $('#qrCode_point').val();}
+        if(app.census.qrCode=='' && $('#qrCode_point').val()!='')
+        {
+            app.census.qrCode = $('#qrCode_point').val();
+        }
         //app.census.position.latitude = '';    // Already set
         //app.census.position.longitude = '';   // Already set
         //app.census.position.accuracy = '';    // Already set
         app.census.fixedOnMap = $('#positionIsCorrect').val();
         
         app.census.guardrail.comune = $ ('#comune').val();
+        if(app.census.guardrail.comune=='' && $('#comune_point').val()!='')
+        {  
+          app.census.guardrail.comune = $('#comune_point').val();  
+        }
         app.census.guardrail.provincia = $ ('#provincia').val();
+        if(app.census.guardrail.provincia=='' && $('#provincia_point').val()!='')
+        {
+            app.census.guardrail.provincia = $('#provincia_point').val(); 
+        }
         app.census.guardrail.street = $('#street').val();
+        if(app.census.guardrail.street=='' && $('#street_point').val()!='')
+        {
+            app.census.guardrail.street = $('#street_point').val(); 
+        }
         app.census.guardrail.streetNumber = $('#streetNumber').val();
+        if(app.census.guardrail.streetNumber=='' && $('#street_point').val()!='')
+        {
+            app.census.guardrail.streetNumber = $('#streetNumber_point').val(); 
+        }
         
         // Pictures related to the city asset
         /* var imageKeys = ['front', 'back', 'perspective'];
@@ -456,6 +487,7 @@ var app = {
         */
         // informazioni guardrail
         var guardrailInfo = new guardrail.guardrailInfo();
+        guardrailInfo.inizio=$('#inizio').val();
         guardrailInfo.classe = $('#classe').val();                                    
         guardrailInfo.spartitraffico = $('#spartitraffico').val();                                       
         guardrailInfo.pianoVariabile = $('#pianoVariabile').val();                       
@@ -483,7 +515,7 @@ var app = {
         //guardrailInfo.kmFine = $('#kmFine').val();
         //guardrailInfo.nomei = $('#nameIni').val();                                 // nome inizio
         //guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
-        //guardrailInfo.chiuso = $('input[type="radio"].guardrail-mark2:checked').val();
+        guardrailInfo.chiuso =0;
 
         //guardrailInfo.  = $('#nomeInizio').val();                              // nome inizio associato
         app.census.guardrail.guardrailInfo = guardrailInfo;
