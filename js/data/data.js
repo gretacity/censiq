@@ -621,14 +621,14 @@ var data = {
                 
                 var verifyB = entity_value.indexOf('inizio":'); 
                 var subSTRB = entity_value.substring(verifyB+9,entity_value.length-14);
-                //console.log('VALORE INIZIO',subSTRB);
+                console.log('VALORE INIZIO',subSTRB);
                 if(subSTRB==1){
                     helper.alert("Non puoi chiudere un punto iniziale");
                     return;
                 }
                 var verify = entity_value.indexOf('chiuso":'); //console.log('sub',verify);
                 var subSTR = entity_value.substring(verify+8,entity_value.length-2);
-                //console.log(subSTR);
+                console.log("Valore chiuso",subSTR);
                 if(subSTR==0)stato="confermare";
                 else stato="annullare";
                 helper.confirm('Vuoi '+stato+' la chiusura del percorso?', function(buttonIndex) {

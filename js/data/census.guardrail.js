@@ -24,10 +24,10 @@ guardrail.guardrailInfo = function() {
     this.radioGroup='';
     this.classeAttenuatore='';
     this.classeChiuso='';
-    this.inizio='';
-    this.chiuso='';
+    this.inizio=0;
+    this.chiuso=0;
     //this.fine = '';                                 // Fine Tratto
-    //this.nomei='';                                  //nome inizio
+    this.nomei='';                                  //nome inizio
     //this.sequenzai='';                              //numero sequenza
 
     //this.nomea='';                                 //nome associato inizio
@@ -94,6 +94,7 @@ data.guardrail = {
         census.guardrail.street = tmp.street;
         census.guardrail.streetNumber= tmp.streetNumber;
         census.guardrail.guardrailInfo= tmp.guardrailInfo;
+        //console.log("TMP",tmp.guardrailInfo);
         //console.log("FINE DESERIALIZE GUARDRAIL",census);
         return census;
     },
@@ -142,7 +143,7 @@ data.guardrail = {
                 sequenza: entity.guardrail.guardrailInfo.sequenzai,
                 nome_inizio: entity.guardrail.guardrailInfo.nomei,
                 inizio:entity.guardrail.guardrailInfo.inizio,
-                chiuso: entity.guardrail.guardrailInfo.chiuso,
+                chiuso: entity.guardrail.guardrailInfo.chiuso
             },
             //gr_censimento_info: [],
             pictures: {

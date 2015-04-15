@@ -269,9 +269,9 @@ var app = {
     },
     closeItems: function(){
                 $('#itemList li input[type="checkbox"]:checked').each(function() {
-                    console.log($('#itemList li[0]'));
+                    //console.log("QUI",$('#itemList li'));
                     var itemId = $(this).attr("data-id");
-                    console.log("ID",itemId);
+                    //console.log("ID",itemId);
                     var liElem = $(this).parents('li');
                     data.close(itemId);
                 });
@@ -428,6 +428,7 @@ var app = {
         if(app.census.qrCode=='' && $('#qrCode_point').val()!='')
         {
             app.census.qrCode = $('#qrCode_point').val();
+            //var inizio_point=1;
         }
         //app.census.position.latitude = '';    // Already set
         //app.census.position.longitude = '';   // Already set
@@ -487,7 +488,6 @@ var app = {
         */
         // informazioni guardrail
         var guardrailInfo = new guardrail.guardrailInfo();
-        guardrailInfo.inizio=$('#inizio').val();
         guardrailInfo.classe = $('#classe').val();                                    
         guardrailInfo.spartitraffico = $('#spartitraffico').val();                                       
         guardrailInfo.pianoVariabile = $('#pianoVariabile').val();                       
@@ -517,7 +517,9 @@ var app = {
         //guardrailInfo.sequenzai = $('#SeqIni').val();                              // numero sequenza iniziale
         guardrailInfo.chiuso =0;
 
-        //guardrailInfo.  = $('#nomeInizio').val();                              // nome inizio associato
+        guardrailInfo.nomei=$('#nomeIni').val();                              // nome inizio associato
+        if(guardrailInfo.parent!=''){
+        guardrailInfo.inizio=0;}else{ guardrailInfo.inizio=1;}
         app.census.guardrail.guardrailInfo = guardrailInfo;
         //console.log("RAILINFO APPS",guardrailInfo);
         
