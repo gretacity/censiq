@@ -621,25 +621,25 @@ var data = {
                 
                 var verifyB = entity_value.indexOf('inizio":'); 
                 var subSTRB = entity_value.substring(verifyB+9,entity_value.length-14);
-                console.log('VALORE INIZIO',subSTRB);
+                //console.log('VALORE INIZIO',subSTRB);
                 if(subSTRB==1){
                     helper.alert("Non puoi chiudere un punto iniziale");
                     return;
                 }
                 var verify = entity_value.indexOf('chiuso":'); //console.log('sub',verify);
                 var subSTR = entity_value.substring(verify+8,entity_value.length-2);
-                console.log("Valore chiuso",subSTR);
+                //console.log("Valore chiuso",subSTR);
                 if(subSTR==0)stato="confermare";
                 else stato="annullare";
                 helper.confirm('Vuoi '+stato+' la chiusura del percorso?', function(buttonIndex) {
                      if(buttonIndex == 1) {
                 if(subSTR==0){
                     var replace= entity_value.replace('chiuso":0','chiuso":1');
-                    $('#itemList li').addClass('close');
+                    $('input#item'+entity+' + label').addClass('close');
                     stato="apertura";
                 }else{
                     var replace= entity_value.replace('chiuso":1','chiuso":0');
-                    $('#itemList li').removeClass('close');
+                    $('input#item'+entity+' + label').removeClass('close');
                     stato="chiusura";
                 }
                  
