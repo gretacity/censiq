@@ -618,7 +618,6 @@ var data = {
                 
                 var entity_value = resultSet.rows.item(0); //console.log('NOME COMPLETO',entity_value);
                 $.each(entity_value, function(key, entity_value) {
-                
                 var verifyB = entity_value.indexOf('inizio":'); 
                 var subSTRB = entity_value.substring(verifyB+9,entity_value.length-14);
                 //console.log('VALORE INIZIO',subSTRB);

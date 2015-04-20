@@ -390,29 +390,22 @@ var app = {
         $logPanel.html((allItems == 0) ? 'Nessun elemento.'
                                        : itemToGuardrail + ' ' + ' di ' + allItems + ' elementi ');
         if(itemToGuardrail == 1) {
-            //$('#syncButton').removeClass('ui-disabled');
-            //$('#deleteButton').show();
-            //$('#addButton').show();
             $('#closeButton').removeClass('ui-disabled');
             $('#deleteButton').removeClass('ui-disabled');
-            $('#addButton').removeClass('ui-disabled');
             $('#newButton').removeClass('ui-disabled');
+            
+            
+        }else if(){
+            $('#addButton').removeClass('ui-disabled');
+        }
         } else if(itemToGuardrail > 1 ) {
-            //$('#synncButton').addClass('ui-disabled');
-            //$('#deleteButton').hide();
-            //$('#addButton').hide();
             $('#closeButton').addClass('ui-disabled');
-            //$('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
             $('#newButton').addClass('ui-disabled');
         }else if(itemToGuardrail == 0 ) {
-            //$('#synncButton').addClass('ui-disabled');
-            //$('#deleteButton').hide();
-            //$('#addButton').hide();
             $('#closeButton').addClass('ui-disabled');
             $('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
-            //$('#newButton').addClass('ui-disabled');
         }
     },
     save: function() {
