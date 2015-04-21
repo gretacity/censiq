@@ -411,3 +411,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
         background: url("../../img/close.png") no-repeat right;
 	background-size: 2.875em 2.875em;
     }
+    .inizio{
+        background: url("../../img/add_car.png") no-repeat right;
+	background-size: 2.875em 2.875em;
+    }

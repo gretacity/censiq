@@ -216,12 +216,14 @@ var app = {
                     console.log("ROW",row);
                 var obj = data.deserialize(row, row.entity_type);
                 //console.log("OBJ",obj);
+                var verifyB = row.entity_value.indexOf('inizio":'); 
+                var subSTRB = row.entity_value.substring(verifyB+9,row.entity_value.length-14);
                 var itemId = 'item' + obj.id;
                 var name = data.shortDescription(obj);
                 var qrCode = obj.qrCode;
                 var dateAdded = Date.parseFromYMDHMS(row.date_added).toDMYHMS();
                 html += '<li style="padding:0;' + (false ? 'background-color:#f00;' : '') + '">' + 
-                        '<input type="checkbox" id="' + itemId + '" data-qrCode="'+obj.qrCode+'" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail()" />' + 
+                        '<input type="checkbox" id="' + itemId + '" data-qrCode="'+obj.qrCode+'" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail('+subSTRB+')" />' + 
                         '<label for="' + itemId +'">' + CensusTypeNames[obj.entityType];
                 if(name != '') {
                     html += '<br />' + name;
@@ -234,6 +236,10 @@ var app = {
             $('#itemList').html(html);
             $('#itemList').listview("refresh");
             $('#elencoGuardrailPage').trigger('create');
+            for(var i = 0; i < itemCount; i++) {
+                var row = result.rows.item(i);
+                app.controllerItem(row.entity_value, row.id);
+            }
             app.countItemToGuardrail();
  
         });
@@ -381,8 +387,19 @@ var app = {
         }
     },
     
-   
-        countItemToGuardrail: function() {
+        controllerItem: function(entity_value,itemId){
+            var verifyB = entity_value.indexOf('inizio":'); 
+            var subSTRB = entity_value.substring(verifyB+9,entity_value.length-14);
+            if(subSTRB==1){
+                 $('input#item'+itemId+' + label').addClass('inizio');
+            }
+            var verify = entity_value.indexOf('chiuso":'); //console.log('sub',verify);
+            var subSTR = entity_value.substring(verify+8,entity_value.length-2);
+            if(subSTR==1){
+                 $('input#item'+itemId+' + label').addClass('close');
+            }
+        },
+        countItemToGuardrail: function(subSTRB) {
         var connectionAvailable = helper.isOnline();
         var allItems = $('#itemList li').length;
         var itemToGuardrail = $('#itemList li input[type="checkbox"]:checked').length;
@@ -393,11 +410,9 @@ var app = {
             $('#closeButton').removeClass('ui-disabled');
             $('#deleteButton').removeClass('ui-disabled');
             $('#newButton').removeClass('ui-disabled');
-            
-            
-        }else if(){
-            $('#addButton').removeClass('ui-disabled');
-        }
+            if(subSTRB==1){
+                $('#addButton').removeClass('ui-disabled');
+            }
         } else if(itemToGuardrail > 1 ) {
             $('#closeButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
