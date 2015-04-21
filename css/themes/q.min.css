@@ -406,7 +406,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
     padding-top: 1.1em !important;
 }
     
-    
+    .box{
+        width: 3em;
+        height: 3em;
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        z-index: 10!important;
+    }
     .close{
         background: url("../../img/close.png") no-repeat right;
 	background-size: 2.875em 2.875em;

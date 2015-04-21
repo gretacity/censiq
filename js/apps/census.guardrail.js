@@ -222,15 +222,16 @@ var app = {
                 var name = data.shortDescription(obj);
                 var qrCode = obj.qrCode;
                 var dateAdded = Date.parseFromYMDHMS(row.date_added).toDMYHMS();
-                html += '<li style="padding:0;' + (false ? 'background-color:#f00;' : '') + '">' + 
-                        '<input type="checkbox" id="' + itemId + '" data-qrCode="'+obj.qrCode+'" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail('+subSTRB+')" />' + 
-                        '<label for="' + itemId +'">' + CensusTypeNames[obj.entityType];
+                html += '<li style="padding:0;' + (false ? 'background-color:#f00;' : '') + '"><div class="ui-checkbox">' +  
+                        '<label style="padding-left: 2em;" class="ui-btn ui-corner-all" for="' + itemId +'">' + CensusTypeNames[obj.entityType];
                 if(name != '') {
                     html += '<br />' + name;
                 }
                 html += '<br /> codice ' + qrCode +
                         '<br /> aggiunto il ' + dateAdded + '</label>' +
-                        '</li>';
+                        '<div class="box" id="' + itemId + '"></div>'+
+                        '<input style="z-index: 2 !important;"type="checkbox" id="' + itemId + '" data-qrCode="'+obj.qrCode+'" data-id="' + obj.id + '"  onchange="app.countItemToGuardrail('+subSTRB+')" />' +
+                        '</div></li>';
             }}
         
             $('#itemList').html(html);
@@ -391,12 +392,12 @@ var app = {
             var verifyB = entity_value.indexOf('inizio":'); 
             var subSTRB = entity_value.substring(verifyB+9,entity_value.length-14);
             if(subSTRB==1){
-                 $('input#item'+itemId+' + label').addClass('inizio');
+                 $('li div.ui-checkbox div#item'+itemId).addClass('inizio');
             }
             var verify = entity_value.indexOf('chiuso":'); //console.log('sub',verify);
             var subSTR = entity_value.substring(verify+8,entity_value.length-2);
             if(subSTR==1){
-                 $('input#item'+itemId+' + label').addClass('close');
+                 $('li div.ui-checkbox div#item'+itemId).addClass('close');
             }
         },
         countItemToGuardrail: function(subSTRB) {
@@ -407,6 +408,9 @@ var app = {
         $logPanel.html((allItems == 0) ? 'Nessun elemento.'
                                        : itemToGuardrail + ' ' + ' di ' + allItems + ' elementi ');
         if(itemToGuardrail == 1) {
+            //$('#syncButton').removeClass('ui-disabled');
+            //$('#deleteButton').show();
+            //$('#addButton').show();
             $('#closeButton').removeClass('ui-disabled');
             $('#deleteButton').removeClass('ui-disabled');
             $('#newButton').removeClass('ui-disabled');
@@ -414,13 +418,21 @@ var app = {
                 $('#addButton').removeClass('ui-disabled');
             }
         } else if(itemToGuardrail > 1 ) {
+            //$('#synncButton').addClass('ui-disabled');
+            //$('#deleteButton').hide();
+            //$('#addButton').hide();
             $('#closeButton').addClass('ui-disabled');
+            //$('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
             $('#newButton').addClass('ui-disabled');
         }else if(itemToGuardrail == 0 ) {
+            //$('#synncButton').addClass('ui-disabled');
+            //$('#deleteButton').hide();
+            //$('#addButton').hide();
             $('#closeButton').addClass('ui-disabled');
             $('#deleteButton').addClass('ui-disabled');
             $('#addButton').addClass('ui-disabled');
+            //$('#newButton').addClass('ui-disabled');
         }
     },
     save: function() {

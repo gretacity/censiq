@@ -618,6 +618,7 @@ var data = {
                 
                 var entity_value = resultSet.rows.item(0); //console.log('NOME COMPLETO',entity_value);
                 $.each(entity_value, function(key, entity_value) {
+                
                 var verifyB = entity_value.indexOf('inizio":'); 
                 var subSTRB = entity_value.substring(verifyB+9,entity_value.length-14);
                 //console.log('VALORE INIZIO',subSTRB);
@@ -634,11 +635,11 @@ var data = {
                      if(buttonIndex == 1) {
                 if(subSTR==0){
                     var replace= entity_value.replace('chiuso":0','chiuso":1');
-                    $('input#item'+entity+' + label').addClass('close');
+                    $('li div.ui-checkbox div#item'+entity).addClass('close');
                     stato="apertura";
                 }else{
                     var replace= entity_value.replace('chiuso":1','chiuso":0');
-                    $('input#item'+entity+' + label').removeClass('close');
+                    $('li div.ui-checkbox div#item'+entity).removeClass('close');
                     stato="chiusura";
                 }
                  
